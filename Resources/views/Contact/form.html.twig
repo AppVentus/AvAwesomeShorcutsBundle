@@ -1,0 +1,16 @@
+<div id="contact-form-container">
+	<form action="{{ path('contactForm') }}" method="post" class="ajax form-horizontal" update="contact-form-container">
+
+	    {{ form_row(form.type) }}
+	    {{ form_row(form.name) }}
+	    {{ form_row(form.email) }}
+	    {{ form_row(form.message) }}
+	    
+	    {{ form_rest(form) }}
+	    <div class="control-group">
+		    <div class="offset2">
+		    	<input type="submit" class="btn btn-primary span3" style="width:220px" value="{{"Envoyer"|trans}}"/>
+		    </div>
+	    </div>
+	</form>
+</div>

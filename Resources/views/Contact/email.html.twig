@@ -1,0 +1,12 @@
+{% extends 'JobBoardBundle::emailLayout.html.twig' %}
+{% block title %}Bonjour,{% endblock %}
+{% block content %}
+
+{{ message|nl2br }}<br/><br/>
+<hr/><br/>
+{{ name }} ({{ email }})
+{% endblock %}
+
+{% block greetings %}
+<p>Cordialement,</p>
+{% endblock greetings %}
