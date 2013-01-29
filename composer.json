@@ -16,8 +16,8 @@
         "symfony/class-loader": "2.1.*"
     },
     "autoload": {
-        "psr-0": { "AppVentus\\Awesome\\AvAwesomeShortcutsBundle": "" }
+        "psr-0": { "AppVentus\\Awesome\\ShortcutsBundle": "" }
     },
-    "target-dir": "AppVentus/Awesome/AvAwesomeShortcutsBundle",
+    "target-dir": "AppVentus/Awesome/ShortcutsBundle",
     "minimum-stability": "dev"
 }
