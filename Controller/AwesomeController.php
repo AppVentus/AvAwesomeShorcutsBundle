@@ -19,9 +19,12 @@ abstract class AwesomeController extends BaseController
     {
         $this->get('event_dispatcher')->dispatch($eventName, $event);
     }
-    public function noty($content,$type="success",$layout="topRight"){
-        $this->get('session')->setFlash('noty',array('type'=>$type, 'layout'=>$layout ,'body'=>$content));
+    
+    public function noty($content, $type = "success", $layout = "topRight")
+    {
+        $this->get('session')->setFlash('noty', array('type'=>$type, 'layout'=>$layout ,'body'=>$content));
     }
+    
     public function getUser()
     {
         if (null === $token = $this->container->get('security.context')->getToken()) {
@@ -34,7 +37,9 @@ abstract class AwesomeController extends BaseController
 
         return $user;
     }
-    public function checkRoles($roles){
+    
+    public function checkRoles($roles)
+    {
         $userRoles = $this->getUser()->getRoles();
         $findArray = array();
         foreach($roles as $role){
@@ -84,7 +89,7 @@ abstract class AwesomeController extends BaseController
 
     public function createAndQueueMail($subject, $from, $to, $body, $contentType = null, $replyTo = null)
     {
-            $controller = $this->getRequest()->attributes->get('_controller');
+        $controller = $this->getRequest()->attributes->get('_controller');
 
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
@@ -92,13 +97,14 @@ abstract class AwesomeController extends BaseController
             ->setTo($to)
             ->setBody($body, $contentType)
             ;
-        if($replyTo != null){
+        if ($replyTo != null) {
             $message->setReplyTo($replyTo);
         }
 
         $this->get('white_october.swiftmailer_db.spool')->queueMessage($message, $controller);
     }
-    public function createAndSendMail($subject, $from, $to, $body, $contentType = null, $replyTo = null)
+    
+    public function createAndSendMail($subject, $from, $to, $body, $contentType = null, $replyTo = null, $mailer = 'instant_mailer')
     {
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
@@ -106,10 +112,10 @@ abstract class AwesomeController extends BaseController
             ->setTo($to)
             ->setBody($body, $contentType)
             ;
-        if($replyTo != null){
+        if ($replyTo != null) {
             $message->setReplyTo($replyTo);
         }
-        $this->get('instant_mailer')->send($message);
+        $this->get($mailer)->send($message);
     }
 
     public function getEntityManager()
