@@ -13,13 +13,22 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ContactController extends AwesomeController
 {
-    
+
     /**
     * @Route("/contact", name="Default_ContactForm")
     * @Template()
     */
     public function formAction()
     {
+
+        $contactParameters = $this->container->getParameter('av_awesome_shorcuts');
+
+                // $template = $contactParameters['template'];
+                $from = $contactParameters['contact_form']['from'];
+                $to = $contactParameters['contact_form']['to'];
+                $subject = $contactParameters['contact_form']['subject'];
+                $template = $contactParameters['contact_form']['template'];
+                $mailTemplate = $contactParameters['contact_form']['mail_template'];
         $form = $this->get('form.factory')->create(new ContactType());
         $request = $this->getRequest();
 
@@ -28,33 +37,30 @@ class ContactController extends AwesomeController
 
             if ($form->isValid()) {
                 $data = $form->getData();
-                
-                    $body = $this->renderView("AvAwesomeShorcutsBundle:Contact:email.html.twig", array(
+
+                    $body = $this->renderView($mailTemplate, array(
                         'name' => $data->name,
                         'email' => $data->email,
                         'message' => $data->message,
                     ));
-                    if($data->type == "commercial"){
-                        $to = 'contact@agissonspourlemploi.fr';
-                    }else{
-                        $to = 'support@agissonspourlemploi.fr';
-                    }
-                $this->createAndSendMail("Agissons pour l'emploi : Nouveau message d'un utilisateur",
-                 'noreply@agissonspourlemploi.fr', 
-                 $to, 
-                 $body, 
+                $this->createAndSendMail($subject,
+                 $from,
+                 $to,
+                 $body,
                  'text/html', $data->email);
 
                 // $this->get('instant_mailer')->send($message);
-                $this->noty("Votre message à été envoyé");
+                $this->noty("Votre message a été envoyé");
                 if($this->getRequest()->isXmlHttpRequest()){
-                    return new Response("<div class=\"alert alert-success\" style=\"text-align:center;\"><strong>Votre message a bien été envoyé</strong><br>Nous vous répondrons dans les plus brefs délais.<br><img src=\"/bundles/jobboard/images/apply/congrats.png\" alt=\"success\"/></div>");
+                    return new Response("<strong>Votre message a bien été envoyé</strong>");
                 }else{
                     return $this->redirectReferer();
                 }
             }
         }
-
+    return $this->render($template, array(
+                'form' => $form->createView()
+                    ));
         return array(
                 'form' => $form->createView()
             );

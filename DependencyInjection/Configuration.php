@@ -24,6 +24,19 @@ class Configuration implements ConfigurationInterface
         // configure your bundle. See the documentation linked above for
         // more information on that topic.
 
+        $rootNode
+            ->children()
+                ->arrayNode('contact_form')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('from')->defaultValue('you@yourcompany.com')->cannotBeEmpty()->end()
+                        ->scalarNode('to')->defaultValue('you@yourcompany.com')->cannotBeEmpty()->end()
+                        ->scalarNode('template')->defaultValue('AvAwesomeShorcutsBundle:Contacter:form.html.twig')->cannotBeEmpty()->end()
+                        ->scalarNode('mail_template')->defaultValue('AvAwesomeShorcutsBundle:Contact:email.html.twig')->cannotBeEmpty()->end()
+                        ->scalarNode('subject')->defaultValue('new message')->cannotBeEmpty()->end()
+                    ->end()
+                ->end()
+            ->end();
         return $treeBuilder;
     }
 }

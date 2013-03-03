@@ -1,11 +1,10 @@
 <div id="contact-form-container">
-	<form action="{{ path('contactForm') }}" method="post" class="ajax form-horizontal" update="contact-form-container">
+	<form action="{{ path('Default_ContactForm') }}" method="post" class="ajax form-horizontal" update="contact-form-container">
 
-	    {{ form_row(form.type) }}
 	    {{ form_row(form.name) }}
 	    {{ form_row(form.email) }}
 	    {{ form_row(form.message) }}
-	    
+
 	    {{ form_rest(form) }}
 	    <div class="control-group">
 		    <div class="offset2">

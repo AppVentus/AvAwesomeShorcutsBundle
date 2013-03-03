@@ -19,12 +19,12 @@ abstract class AwesomeController extends BaseController
     {
         $this->get('event_dispatcher')->dispatch($eventName, $event);
     }
-    
+
     public function noty($content, $type = "success", $layout = "topRight")
     {
         $this->get('session')->setFlash('noty', array('type'=>$type, 'layout'=>$layout ,'body'=>$content));
     }
-    
+
     public function getUser()
     {
         if (null === $token = $this->container->get('security.context')->getToken()) {
@@ -37,7 +37,7 @@ abstract class AwesomeController extends BaseController
 
         return $user;
     }
-    
+
     public function checkRoles($roles)
     {
         $userRoles = $this->getUser()->getRoles();
@@ -103,8 +103,8 @@ abstract class AwesomeController extends BaseController
 
         $this->get('white_october.swiftmailer_db.spool')->queueMessage($message, $controller);
     }
-    
-    public function createAndSendMail($subject, $from, $to, $body, $contentType = null, $replyTo = null, $mailer = 'instant_mailer')
+
+    public function createAndSendMail($subject, $from, $to, $body, $contentType = null, $replyTo = null, $mailer = 'mailer')
     {
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
@@ -245,13 +245,13 @@ abstract class AwesomeController extends BaseController
     {
         return $this->get('doctrine.orm.entity_manager')->getRepository('AppVentus\Awesome\NewsletterBundle\Entity\Address');
     }
-    
+
     public function preExecute(){}
 
 
-    function getBrowser() 
-    { 
-        $u_agent = $_SERVER['HTTP_USER_AGENT']; 
+    function getBrowser()
+    {
+        $u_agent = $_SERVER['HTTP_USER_AGENT'];
         $bname = 'Unknown';
         $platform = 'Unknown';
         $version= "";
@@ -266,39 +266,39 @@ abstract class AwesomeController extends BaseController
         elseif (preg_match('/windows|win32/i', $u_agent)) {
             $platform = 'windows';
         }
-        
+
         // Next get the name of the useragent yes seperately and for good reason
-        if(preg_match('/MSIE/i',$u_agent) && !preg_match('/Opera/i',$u_agent)) 
-        { 
-            $bname = 'Internet Explorer'; 
-            $ub = "MSIE"; 
-        } 
-        elseif(preg_match('/Firefox/i',$u_agent)) 
-        { 
-            $bname = 'Mozilla Firefox'; 
-            $ub = "Firefox"; 
-        } 
-        elseif(preg_match('/Chrome/i',$u_agent)) 
-        { 
-            $bname = 'Google Chrome'; 
-            $ub = "Chrome"; 
-        } 
-        elseif(preg_match('/Safari/i',$u_agent)) 
-        { 
-            $bname = 'Apple Safari'; 
-            $ub = "Safari"; 
-        } 
-        elseif(preg_match('/Opera/i',$u_agent)) 
-        { 
-            $bname = 'Opera'; 
-            $ub = "Opera"; 
-        } 
-        elseif(preg_match('/Netscape/i',$u_agent)) 
-        { 
-            $bname = 'Netscape'; 
-            $ub = "Netscape"; 
-        } 
-        
+        if(preg_match('/MSIE/i',$u_agent) && !preg_match('/Opera/i',$u_agent))
+        {
+            $bname = 'Internet Explorer';
+            $ub = "MSIE";
+        }
+        elseif(preg_match('/Firefox/i',$u_agent))
+        {
+            $bname = 'Mozilla Firefox';
+            $ub = "Firefox";
+        }
+        elseif(preg_match('/Chrome/i',$u_agent))
+        {
+            $bname = 'Google Chrome';
+            $ub = "Chrome";
+        }
+        elseif(preg_match('/Safari/i',$u_agent))
+        {
+            $bname = 'Apple Safari';
+            $ub = "Safari";
+        }
+        elseif(preg_match('/Opera/i',$u_agent))
+        {
+            $bname = 'Opera';
+            $ub = "Opera";
+        }
+        elseif(preg_match('/Netscape/i',$u_agent))
+        {
+            $bname = 'Netscape';
+            $ub = "Netscape";
+        }
+
         // finally get the correct version number
         $known = array('Version', $ub, 'other');
         $pattern = '#(?<browser>' . join('|', $known) .
@@ -306,7 +306,7 @@ abstract class AwesomeController extends BaseController
         if (!preg_match_all($pattern, $u_agent, $matches)) {
             // we have no matching number just continue
         }
-        
+
         // see how many we have
         $i = count($matches['browser']);
         if ($i != 1) {
@@ -322,10 +322,10 @@ abstract class AwesomeController extends BaseController
         else {
             $version= $matches['version'][0];
         }
-        
+
         // check if we have a number
         if ($version==null || $version=="") {$version="?";}
-        
+
         return $bname.' '.$version.' '.$platform;
         // return array(
         //     'userAgent' => $u_agent,
@@ -334,7 +334,7 @@ abstract class AwesomeController extends BaseController
         //     'platform'  => $platform,
         //     'pattern'    => $pattern
         // );
-    } 
+    }
 
 
 
