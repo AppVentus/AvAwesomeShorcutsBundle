@@ -25,6 +25,11 @@ abstract class AwesomeController extends BaseController
         $this->get('session')->setFlash('noty', array('type'=>$type, 'layout'=>$layout ,'body'=>$content));
     }
 
+    public function toastr($content, $type = "success", $layout = "bottom-left")
+    {
+        $this->get('session')->setFlash('toastr', array('type'=>$type, 'layout'=>$layout ,'body'=>$content));
+    }
+
     public function getUser()
     {
         if (null === $token = $this->container->get('security.context')->getToken()) {

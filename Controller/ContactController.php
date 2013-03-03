@@ -49,8 +49,7 @@ class ContactController extends AwesomeController
                  $body,
                  'text/html', $data->email);
 
-                // $this->get('instant_mailer')->send($message);
-                $this->noty("Votre message a été envoyé");
+                $this->toastr("Votre message à été envoyé");
                 if($this->getRequest()->isXmlHttpRequest()){
                     return new Response("<strong>Votre message a bien été envoyé</strong>");
                 }else{
