@@ -57,9 +57,22 @@ class ContactController extends AwesomeController
                 }
             }
         }
-    return $this->render($template, array(
-                'form' => $form->createView()
-                    ));
+
+                if($this->getRequest()->isXmlHttpRequest()){
+                            return $this->render($template, array(
+                                        'form' => $form->createView()
+                            ));
+                }else{
+                    $this->setFlash('modal', array(
+                        "button_class"=>"hide",
+                        "body"=>$this->renderView($template, array(
+                                            'form' => $form->createView()
+                                        )),
+                        "title"=>"Contactez nous"
+                        ));
+                    return $this->redirectReferer();
+                }
+
         return array(
                 'form' => $form->createView()
             );
