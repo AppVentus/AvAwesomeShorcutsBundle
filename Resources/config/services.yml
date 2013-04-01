@@ -1,7 +1,8 @@
 services:
-    controller.pre_execute_listener:
+    kernel.listener.preExecute:
         class: AppVentus\Awesome\ShortcutsBundle\Listener\ControllerListener
         tags:
-            - name: kernel.event_listener
-            - event: kernel.controller
-            - method: preExecuteController
+            - { name: kernel.event_listener, event: kernel.controller, method: preExecuteController }
+
+    av.tool:
+        class: AppVentus\Awesome\ShortcutsBundle\Utils\Utils

@@ -15,6 +15,8 @@ use WhiteOctober\SwiftMailerDBBundle\EmailInterface;
  **/
 abstract class AwesomeController extends BaseController
 {
+    protected $tool;
+
     public function dispatchEvent($eventName, Event $event = null)
     {
         $this->get('event_dispatcher')->dispatch($eventName, $event);
@@ -251,7 +253,10 @@ abstract class AwesomeController extends BaseController
         return $this->get('doctrine.orm.entity_manager')->getRepository('AppVentus\Awesome\NewsletterBundle\Entity\Address');
     }
 
-    public function preExecute(){}
+    public function preExecute(){
+        $this->tool = $this->get('av.tool');
+        $this->urlizer = $this->get('gedmo.urlizer');
+    }
 
 
     function getBrowser()
