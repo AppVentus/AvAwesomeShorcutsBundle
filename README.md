@@ -33,11 +33,15 @@ Dans votre AppKernel.php ajouter les lignes suivantes :
     }
 
 ## Configuration
-
 ### Twig
+
 Dans le fichier config.yml ajouter les lignes suivantes :
     # Twig Configuration
     twig:
         form:
             resources:
                 - 'AvAwesomeShorcutsBundle::fields.html.twig'
+
+Dans votre fichier de layout charger les fichiers suivants :
+    '@AvAwesomeShorcutsBundle/Resources/public/css/datepicker.css'
+    '@AvAwesomeShorcutsBundle/Resources/public/js/bootstrap-datepicker.js'

@@ -23,6 +23,7 @@ class DatepickerType extends AbstractType
 
     /**
      * {@inheritdoc}
+     * @see https://github.com/eternicode/bootstrap-datepicker
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
@@ -31,7 +32,8 @@ class DatepickerType extends AbstractType
             'input'   => 'datetime',
             'format'  => 'dd-MM-yyyy',
             'options' => array(
-                'dateFormat' => 'dd-mm-yy',
+                'format' => 'dd-mm-yyyy',
+                'autoclose'  => true,
             ),
         ));
     }
