@@ -6,3 +6,9 @@ services:
 
     av.tool:
         class: AppVentus\Awesome\ShortcutsBundle\Utils\Utils
+
+    # Form
+    form.type.datepicker:
+        class: AppVentus\Awesome\ShortcutsBundle\Form\Type\DatepickerType
+        tags:
+            - { name: form.type, alias: datepicker }

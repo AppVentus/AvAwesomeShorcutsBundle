@@ -8,7 +8,7 @@ Cette procédure décrit l'installation du projet pour une utilisation dans une 
 ### Récupération du bundle
 #### Composer
 
-Ajouter les lignes suivante dans votre composer.json :
+Ajouter les lignes suivantes dans votre composer.json :
     {
         "require": {
             "appventus/shortcuts-bundle": "dev-master"
@@ -20,7 +20,7 @@ Puis, executer la commande suivante :
 
 ### Activer le bundle
 
-Dans votre AppKernel.php ajouter les lignes suivante :
+Dans votre AppKernel.php ajouter les lignes suivantes :
 
     <?php
 
@@ -31,3 +31,13 @@ Dans votre AppKernel.php ajouter les lignes suivante :
             new AppVentus\Awesome\ShortcutsBundle\AvAwesomeShorcutsBundle(),
         );
     }
+
+## Configuration
+
+### Twig
+Dans le fichier config.yml ajouter les lignes suivantes :
+    # Twig Configuration
+    twig:
+        form:
+            resources:
+                - 'AvAwesomeShorcutsBundle::fields.html.twig'
