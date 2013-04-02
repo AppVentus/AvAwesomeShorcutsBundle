@@ -11,7 +11,7 @@ Cette procédure décrit l'installation du projet pour une utilisation dans une 
 Ajouter les lignes suivante dans votre composer.json :
     {
         "require": {
-            "pugx/multi-user-bundle": "master-dev"
+            "appventus/shortcuts-bundle": "dev-master"
         }
     }
 
