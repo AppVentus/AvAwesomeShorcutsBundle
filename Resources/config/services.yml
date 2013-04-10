@@ -7,6 +7,9 @@ services:
     av.tool:
         class: AppVentus\Awesome\ShortcutsBundle\Utils\Utils
 
+    gedmo.urlizer:
+        class: Gedmo\Sluggable\Util\Urlizer
+
     # Form
     form.type.datepicker:
         class: AppVentus\Awesome\ShortcutsBundle\Form\Type\DatepickerType
