@@ -3,7 +3,7 @@
         {{ block('form_widget_simple') }}
         <script type="text/javascript">
             $(document).ready(function(){
-                $('#{{ id }}').datepicker({{ form.vars.datepicker_settings|raw }});
+                $('#{{ id }}').mask('11/11/1111');
             });
         </script>
     {% endspaceless %}
