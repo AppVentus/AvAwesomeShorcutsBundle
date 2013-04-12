@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class DatepickerType extends AbstractType
+class DatemaskType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -15,26 +15,23 @@ class DatepickerType extends AbstractType
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $settings = null;
-        if (0 !== count($options['options'])) {
-            $settings = json_encode($options['options']);
+        if (0 !== count($options['mask_option'])) {
+            $settings = json_encode($options['mask_option']);
         }
-        $view->vars['datepicker_settings'] = $settings;
+        $view->vars['datemask_setting'] = $settings;
     }
 
     /**
      * {@inheritdoc}
-     * @see https://github.com/eternicode/bootstrap-datepicker
+     * @see https://github.com/igorescobar/jQuery-Mask-Plugin
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'widget'  => 'single_text',
-            'input'   => 'datetime',
-            'format'  => 'dd/MM/yyyy',
-            'options' => array(
-                'format' => 'dd/mm/yyyy',
-                'autoclose'  => true,
-            ),
+            'widget'      => 'single_text',
+            'input'       => 'datetime',
+            'format'      => 'dd/MM/yyyy',
+            'mask_option' => '11/11/1111',
         ));
     }
 
@@ -53,7 +50,7 @@ class DatepickerType extends AbstractType
      */
     public function getName()
     {
-        return 'datepicker';
+        return 'datemask';
     }
 
 }

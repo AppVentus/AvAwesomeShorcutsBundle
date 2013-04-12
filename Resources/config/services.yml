@@ -15,3 +15,7 @@ services:
         class: AppVentus\Awesome\ShortcutsBundle\Form\Type\DatepickerType
         tags:
             - { name: form.type, alias: datepicker }
+    form.type.datemask:
+        class: AppVentus\Awesome\ShortcutsBundle\Form\Type\DatemaskType
+        tags:
+            - { name: form.type, alias: datemask }

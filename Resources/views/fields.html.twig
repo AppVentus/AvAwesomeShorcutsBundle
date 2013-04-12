@@ -3,10 +3,19 @@
         {{ block('form_widget_simple') }}
         <script type="text/javascript">
             $(document).ready(function(){
-                $('#{{ id }}').mask('11/11/1111');
+                $('#{{ id }}').datepicker({{ form.vars.datepicker_settings|raw }});
             });
         </script>
     {% endspaceless %}
 {% endblock datepicker_widget %}
 
-
+{% block datemask_widget %}
+    {% spaceless %}
+        {{ block('form_widget_simple') }}
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('#{{ id }}').mask({{ form.vars.datemask_setting|raw }});
+            });
+        </script>
+    {% endspaceless %}
+{% endblock datemask_widget %}
