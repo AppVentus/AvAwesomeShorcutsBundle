@@ -24,12 +24,12 @@ abstract class AwesomeController extends BaseController
 
     public function noty($content, $type = "success", $layout = "topRight")
     {
-        $this->get('session')->setFlash('noty', array('type'=>$type, 'layout'=>$layout ,'body'=>$content));
+        $this->get('session')->getFlashBag()->add('noty', array('type'=>$type, 'layout'=>$layout ,'body'=>$content));
     }
 
     public function toastr($content, $type = "success", $layout = "bottom-left")
     {
-        $this->get('session')->setFlash('toastr', array('type'=>$type, 'layout'=>$layout ,'body'=>$content));
+        $this->get('session')->getFlashBag()->add('toastr', array('type'=>$type, 'layout'=>$layout ,'body'=>$content));
     }
 
     public function getUser()
@@ -212,48 +212,9 @@ abstract class AwesomeController extends BaseController
     {
         return new AccessDeniedException($message, $previous);
     }
-    public function getAdRepository()
-    {
-        return $this->get('doctrine.orm.entity_manager')->getRepository('AppVentus\JobBoardBundle\Entity\Ad');
-    }
-    public function getEventRepository()
-    {
-        return $this->get('doctrine.orm.entity_manager')->getRepository('AppVentus\JobBoardBundle\Entity\Event');
-    }
-    public function getRecruiterRepository()
-    {
-        return $this->get('doctrine.orm.entity_manager')->getRepository('AppVentus\JobBoardBundle\Entity\Recruiter');
-    }
-    public function getSectorRepository()
-    {
-        return $this->get('doctrine.orm.entity_manager')->getRepository('AppVentus\JobBoardBundle\Entity\Sector');
-    }
-    public function getUserRepository()
-    {
-        return $this->get('doctrine.orm.entity_manager')->getRepository('AppVentus\JobBoardBundle\Entity\User');
-    }
-    public function getCandidateRepository()
-    {
-        return $this->get('doctrine.orm.entity_manager')->getRepository('AppVentus\JobBoardBundle\Entity\Candidate');
-    }
-    public function getApplicantRepository()
-    {
-        return $this->get('doctrine.orm.entity_manager')->getRepository('AppVentus\JobBoardBundle\Entity\Applicant');
-    }
-    public function getPageRepository()
-    {
-        return $this->get('doctrine.orm.entity_manager')->getRepository('AppVentus\CmsBundle\Entity\Page');
-    }
-    public function getAdminRepository()
-    {
-        return $this->get('doctrine.orm.entity_manager')->getRepository('AppVentus\JobBoardBundle\Entity\Admin');
-    }
-    public function getAdressRepository()
-    {
-        return $this->get('doctrine.orm.entity_manager')->getRepository('AppVentus\Awesome\NewsletterBundle\Entity\Address');
-    }
 
-    public function preExecute(){
+    public function preExecute()
+    {
         $this->tool = $this->get('av.tool');
         $this->urlizer = $this->get('gedmo.urlizer');
     }
