@@ -22,16 +22,41 @@ abstract class AwesomeController extends BaseController
         $this->get('event_dispatcher')->dispatch($eventName, $event);
     }
 
-    public function noty($content, $type = "success", $layout = "topRight")
+    /**
+     * Add noty message to flashbag.
+     *
+     * @param string $content
+     * @param string $type
+     * @param string $layout
+     */
+    public function noty($content, $type = 'success', $layout = 'topRight')
     {
-        $this->get('session')->getFlashBag()->add('noty', array('type'=>$type, 'layout'=>$layout ,'body'=>$content));
+        $this->get('session')->getFlashBag()->set('noty', array('type'   => $type,
+                                                                'layout' => $layout,
+                                                                'body'   => $content)
+        );
     }
 
-    public function toastr($content, $type = "success", $layout = "bottom-left")
+    /**
+     * Add toastr message to flashbag.
+     *
+     * @param string $content
+     * @param string $type
+     * @param string $layout
+     */
+    public function toastr($content, $type = 'success', $layout = 'bottom-left')
     {
-        $this->get('session')->getFlashBag()->add('toastr', array('type'=>$type, 'layout'=>$layout ,'body'=>$content));
+        $this->get('session')->getFlashBag()->set('toastr', array('type'   => $type,
+                                                                  'layout' => $layout,
+                                                                  'body'   => $content)
+        );
     }
 
+    /**
+     * Return logged user
+     *
+     * @return User
+     */
     public function getUser()
     {
         if (null === $token = $this->container->get('security.context')->getToken()) {
@@ -48,7 +73,6 @@ abstract class AwesomeController extends BaseController
     public function checkRoles($roles)
     {
         $userRoles = $this->getUser()->getRoles();
-        $findArray = array();
         foreach($roles as $role){
             foreach($userRoles as $userRole){
                 if($role == $userRole){
@@ -219,7 +243,10 @@ abstract class AwesomeController extends BaseController
         $this->urlizer = $this->get('gedmo.urlizer');
     }
 
-
+    /**
+     *
+     * @return string
+     */
     function getBrowser()
     {
         $u_agent = $_SERVER['HTTP_USER_AGENT'];
@@ -295,9 +322,11 @@ abstract class AwesomeController extends BaseController
         }
 
         // check if we have a number
-        if ($version==null || $version=="") {$version="?";}
+        if ($version == null || $version == '') {
+            $version = '?';
+        }
 
-        return $bname.' '.$version.' '.$platform;
+        return $bname . ' ' . $version . ' ' . $platform;
         // return array(
         //     'userAgent' => $u_agent,
         //     'name'      => $bname,
