@@ -13,7 +13,7 @@
         }
     ],
     "require-dev": {
-        "symfony/class-loader": "2.1.*"
+        "symfony/class-loader": "2.2.*"
     },
     "autoload": {
         "psr-0": { "AppVentus\\Awesome\\ShortcutsBundle": "" }
