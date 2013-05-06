@@ -3,6 +3,14 @@
         {{ block('form_widget_simple') }}
         <script type="text/javascript">
             $(document).ready(function(){
+                $.fn.datepicker.DPGlobal.dates = {
+                    days: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"],
+                    daysShort: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"],
+                    daysMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa", "Di"],
+                    months: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Décembre"],
+                    monthsShort: ["Jan", "Fev", "Mar", "Avr", "Mai", "Juin", "Jui", "Aou", "Sep", "Oct", "Nov", "Déc"],
+                    today: "Aujourd'hui"
+                };
                 $('#{{ id }}').datepicker({{ form.vars.datepicker_settings|raw }});
             });
         </script>
@@ -19,3 +27,32 @@
         </script>
     {% endspaceless %}
 {% endblock datemask_widget %}
+{% block datemaskpicker_widget %}
+    {% spaceless %}
+    <div class="date" >
+        {{ block('form_widget_simple') }}
+        <a style="text-decoration:none;" href="#" class="add-on" id="{{ id }}_datemask" data-date="{% if value is not empty %}value="{{ value }}" {% endif %}"><i class="icon-calendar"></i></a>
+      </div>
+
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $.fn.datepicker.DPGlobal.dates = {
+                    days: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"],
+                    daysShort: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"],
+                    daysMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa", "Di"],
+                    months: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Décembre"],
+                    monthsShort: ["Jan", "Fev", "Mar", "Avr", "Mai", "Juin", "Jui", "Aou", "Sep", "Oct", "Nov", "Déc"],
+                    today: "Aujourd'hui"
+                };
+                $('#{{ id }}').mask({{ form.vars.datemask_settings|raw }});
+
+            $('#{{ id }}_datemask').datepicker({{ form.vars.datepicker_settings|raw }})
+                .on('changeDate', function(ev){
+                        $('#{{id}}').val($('#{{ id }}_datemask').data('date'));
+
+                });
+
+            });
+        </script>
+    {% endspaceless %}
+{% endblock datemaskpicker_widget %}
