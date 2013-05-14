@@ -48,7 +48,7 @@
 
             $('#{{ id }}_datemask').datepicker({{ form.vars.datepicker_settings|raw }})
                 .on('changeDate', function(ev){
-                        $('#{{id}}').val($('#{{ id }}_datemask').data('date'));
+                        $('#{{id}}').val($('#{{ id }}_datemask').trigger('change').data('date'));
 
                 });
 
