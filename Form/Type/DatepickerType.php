@@ -32,8 +32,9 @@ class DatepickerType extends AbstractType
             'input'   => 'datetime',
             'format'  => 'dd/MM/yyyy',
             'options' => array(
-                'format' => 'dd/mm/yyyy',
-                'autoclose'  => true,
+                'format'    => 'dd/mm/yyyy',
+                'weekStart' => 1,
+                'autoclose' => true,
             ),
         ));
     }
