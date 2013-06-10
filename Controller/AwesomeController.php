@@ -5,14 +5,11 @@ namespace AppVentus\Awesome\ShortcutsBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use AppVentus\JobBoardBundle\Entity\Mail;
-use WhiteOctober\SwiftMailerDBBundle\EmailInterface;
 
 /**
  * @author Leny BERNARD <leny@appventus.com>
- **/
+ */
 abstract class AwesomeController extends BaseController
 {
     protected $tool;
@@ -68,20 +65,6 @@ abstract class AwesomeController extends BaseController
         }
 
         return $user;
-    }
-
-    public function checkRoles($roles)
-    {
-        $userRoles = $this->getUser()->getRoles();
-        foreach($roles as $role){
-            foreach($userRoles as $userRole){
-                if($role == $userRole){
-                    return true;
-                }
-            }
-        }
-        throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException();
-
     }
 
     public function isGranted($attributes, $object = null)
@@ -151,7 +134,7 @@ abstract class AwesomeController extends BaseController
 
     public function getEntityManager()
     {
-        return $this->getDoctrine()->getEntityManager();
+        return $this->getDoctrine()->getManager();
     }
 
     public function isGrantedOr403($attributes, $object = null, $message = null)
@@ -189,28 +172,6 @@ abstract class AwesomeController extends BaseController
         return $url === $this->container->get('request')->headers->get('referer');
     }
 
-    public function createJsonResponse($data, $status = 200)
-    {
-        return new Response(
-            json_encode($data),
-            $status,
-            array('content-type' => 'application/json')
-        );
-    }
-
-    public function isEventActiveOr404($event,$mode="ad_show") {
-        return $event->isActive($mode);
-    }
-
-
-    public function findAdBySlugOr404($slug) {
-        return $this->findEntityOr404('Ad',array('slug'=>$slug));
-    }
-
-    public function findAdOr404($id) {
-        return $this->findEntityOr404('Ad',array('id'=>$id));
-    }
-
     public function findEntityOr404($entity, $criteria) {
         if (method_exists($this, 'get'.$entity.'Repository')) {
             $obj = $this->{'get'.$entity.'Repository'}()->findOneBy($criteria);
@@ -244,15 +205,16 @@ abstract class AwesomeController extends BaseController
     }
 
     /**
+     * Get browser
      *
      * @return string
      */
     function getBrowser()
     {
-        $u_agent = $_SERVER['HTTP_USER_AGENT'];
-        $bname = 'Unknown';
+        $u_agent  = $_SERVER['HTTP_USER_AGENT'];
+        $bname    = 'Unknown';
         $platform = 'Unknown';
-        $version= "";
+        $version  = '';
 
         //First get the platform?
         if (preg_match('/linux/i', $u_agent)) {
