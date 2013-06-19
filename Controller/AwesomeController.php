@@ -14,6 +14,13 @@ abstract class AwesomeController extends BaseController
 {
     protected $tool;
 
+    /**
+     * Shortcut to dispatch event.
+     *
+     * @param string $eventName
+     * @param Event  $event
+     * @return void
+     */
     public function dispatchEvent($eventName, Event $event = null)
     {
         $this->get('event_dispatcher')->dispatch($eventName, $event);
@@ -28,9 +35,13 @@ abstract class AwesomeController extends BaseController
      */
     public function noty($content, $type = 'success', $layout = 'topRight')
     {
-        $this->get('session')->getFlashBag()->set('noty', array('type'   => $type,
-                                                                'layout' => $layout,
-                                                                'body'   => $content)
+        $this->get('session')->getFlashBag()->add(
+                'noty',
+                array(
+                    'type'   => $type,
+                    'layout' => $layout,
+                    'body'   => $content
+                )
         );
     }
 
@@ -43,9 +54,13 @@ abstract class AwesomeController extends BaseController
      */
     public function toastr($content, $type = 'success', $layout = 'bottom-left')
     {
-        $this->get('session')->getFlashBag()->set('toastr', array('type'   => $type,
-                                                                  'layout' => $layout,
-                                                                  'body'   => $content)
+        $this->get('session')->getFlashBag()->add(
+                'toastr',
+                array(
+                    'type' => $type,
+                    'layout' => $layout,
+                    'body'   => $content
+                )
         );
     }
 
@@ -72,11 +87,6 @@ abstract class AwesomeController extends BaseController
         return $this->get('security.context')->isGranted($attributes, $object);
     }
 
-    public function setFlash($name, $message)
-    {
-        $this->get('session')->setFlash($name, $message);
-    }
-
     public function getSession($name, $default = null)
     {
         return $this->get('session')->get($name, $default);
@@ -87,6 +97,11 @@ abstract class AwesomeController extends BaseController
         $this->get('session')->set($name, $value);
     }
 
+    /**
+     * Shortcut to persist and flush an entity.
+     *
+     * @param Object $entity
+     */
     public function persistAndFlush($entity)
     {
         $em = $this->getEntityManager();
@@ -94,6 +109,11 @@ abstract class AwesomeController extends BaseController
         $em->flush();
     }
 
+    /**
+     * Shortcut to remove and flush an entity.
+     *
+     * @param object $entity
+     */
     public function removeAndFlush($entity)
     {
         $em = $this->getEntityManager();
@@ -132,6 +152,11 @@ abstract class AwesomeController extends BaseController
         $this->get($mailer)->send($message);
     }
 
+    /**
+     * Shortcut to entity manager
+     *
+     * @return \Doctrine\Common\Persistence\ObjectManager
+     */
     public function getEntityManager()
     {
         return $this->getDoctrine()->getManager();
@@ -289,13 +314,6 @@ abstract class AwesomeController extends BaseController
         }
 
         return $bname . ' ' . $version . ' ' . $platform;
-        // return array(
-        //     'userAgent' => $u_agent,
-        //     'name'      => $bname,
-        //     'version'   => $version,
-        //     'platform'  => $platform,
-        //     'pattern'    => $pattern
-        // );
     }
 
 
