@@ -38,7 +38,7 @@ class DatemaskpickerType extends AbstractType
                 'autoclose' => true,
             ),
             'mask_option' => '11/11/1111',
-            'help_block'  => 'ex : 31/12/1980',
+            'help_block'  => 'format : 31/12/1980',
         ));
     }
 
