@@ -71,7 +71,7 @@ abstract class AwesomeController extends BaseController
      * @param string $type
      * @param string $layout
      */
-    public function setFlash($name, $content)
+    public function setFlash($name, $value)
     {
         $this->get('session')->getFlashBag()->add($name,$value);
     }
