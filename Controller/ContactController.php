@@ -63,7 +63,7 @@ class ContactController extends AwesomeController
                                         'form' => $form->createView()
                             ));
                 }else{
-                    $this->setFlash('modal', array(
+                    $this->get('session')->getFlashBag()->add('modal', array(
                         "button_class"=>"hide",
                         "body"=>$this->renderView($template, array(
                                             'form' => $form->createView()
