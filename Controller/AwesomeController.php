@@ -35,13 +35,13 @@ abstract class AwesomeController extends BaseController
      */
     public function noty($content, $type = 'success', $layout = 'topRight')
     {
-        $this->get('session')->getFlashBag()->add(
-                'noty',
-                array(
-                    'type'   => $type,
-                    'layout' => $layout,
-                    'body'   => $content
-                )
+        $this->setFlash(
+            'noty',
+            array(
+                'type' => $type,
+                'layout' => $layout,
+                'body'   => $content
+            )
         );
     }
 
@@ -54,14 +54,26 @@ abstract class AwesomeController extends BaseController
      */
     public function toastr($content, $type = 'success', $layout = 'bottom-left')
     {
-        $this->get('session')->getFlashBag()->add(
-                'toastr',
-                array(
-                    'type' => $type,
-                    'layout' => $layout,
-                    'body'   => $content
-                )
+        $this->setFlash(
+            'toastr',
+            array(
+                'type' => $type,
+                'layout' => $layout,
+                'body'   => $content
+            )
         );
+    }
+
+    /**
+     * Add thing to flashbag.
+     *
+     * @param string $content
+     * @param string $type
+     * @param string $layout
+     */
+    public function setFlash($name, $content)
+    {
+        $this->get('session')->getFlashBag()->add($name,$value);
     }
 
     /**
