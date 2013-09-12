@@ -1,3 +1,13 @@
+{% block redactor_widget %}
+    {% spaceless %}
+{{ block('textarea_widget') }}
+
+<script type="text/javascript">
+        $('#{{ id }}').redactor({{ form.vars.redactor_settings|raw }});
+</script>
+    {% endspaceless %}
+{% endblock redactor_widget %}
+
 {% block datepicker_widget %}
     {% spaceless %}
         {{ block('form_widget_simple') }}

@@ -23,3 +23,7 @@ services:
         class: AppVentus\Awesome\ShortcutsBundle\Form\Type\DatemaskpickerType
         tags:
             - { name: form.type, alias: datemaskpicker }
+    form.type.redactor:
+        class: AppVentus\Awesome\ShortcutsBundle\Form\Type\RedactorType
+        tags:
+            - { name: form.type, alias: redactor }
