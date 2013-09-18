@@ -7,7 +7,7 @@
 // files storage folder
 // Be carefull, this is depending of your assets strategy (symlink or not)
 $uploadDir = '/uploads/cms/images/';
-$dir = __DIR__.'/../../../../../web'.$uploadDir;
+$dir = __DIR__.'/../../../../..'.$uploadDir;
 
 $_FILES['file']['type'] = strtolower($_FILES['file']['type']);
 
@@ -27,7 +27,7 @@ if (
 
     // displaying file
     $array = array(
-    	'filelink' => $uploadDir.$filename
+        'filelink' => $uploadDir.$filename
     );
 
     echo stripslashes(json_encode($array));
