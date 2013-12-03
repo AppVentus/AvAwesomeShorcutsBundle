@@ -29,18 +29,20 @@ abstract class AwesomeController extends BaseController
     /**
      * Add noty message to flashbag.
      *
-     * @param string $content
-     * @param string $type
-     * @param string $layout
+     * @param string $content           Captain Obvious ? We have to setup a content
+     * @param string $type              Success or Error ? Warning or Info ? You choose !
+     * @param string $layout            How the noty should be rendered ? topRight ? top Left ? bottom ? Go to doc to know more
+     * @param string $translationDomain The translation domain to use to translate strings
      */
-    public function noty($content, $type = 'success', $layout = 'topRight')
+    public function noty($content, $type = 'success', $layout = 'topRight', $translationDomain = 'flash')
     {
         $this->setFlash(
             'noty',
             array(
-                'type' => $type,
-                'layout' => $layout,
-                'body'   => $content
+                'type'              => $type,
+                'layout'            => $layout,
+                'body'              => $content,
+                'translationDomain' => $translationDomain
             )
         );
     }
@@ -48,18 +50,20 @@ abstract class AwesomeController extends BaseController
     /**
      * Add toastr message to flashbag.
      *
-     * @param string $content
-     * @param string $type
-     * @param string $layout
+     * @param string $content           Captain Obvious ? We have to setup a content
+     * @param string $type              Success or Error ? Warning or Info ? You choose !
+     * @param string $layout            How the toastr should be rendered ? topRight ? top Left ? bottom ? Go to doc to know more
+     * @param string $translationDomain The translation domain to use to translate strings
      */
-    public function toastr($content, $type = 'success', $layout = 'bottom-left')
+    public function toastr($content, $type = 'success', $layout = 'topRight', $translationDomain = 'flash')
     {
         $this->setFlash(
             'toastr',
             array(
-                'type' => $type,
-                'layout' => $layout,
-                'body'   => $content
+                'type'              => $type,
+                'layout'            => $layout,
+                'body'              => $content,
+                'translationDomain' => $translationDomain
             )
         );
     }
