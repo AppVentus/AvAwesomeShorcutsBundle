@@ -15,7 +15,7 @@ class ControllerListener
         {
             // controller catching    
             $_controller = $event->getController();
-            if (isset($_controller[0])) 
+            if (is_array($_controller) && isset($_controller[0])) 
             {
                 $controller = $_controller[0];
                 // preExecute method verification
