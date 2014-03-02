@@ -3,11 +3,14 @@
 // This is a simplified example, which doesn't cover security of uploaded images.
 // This example just demonstrate the logic behind the process.
 
-
 // files storage folder
 // Be carefull, this is depending of your assets strategy (symlink or not)
-$uploadDir = '/uploads/cms/images/';
-$dir = __DIR__.'/../../../../..'.$uploadDir;
+$uploadImagesDir = '/images';
+$uploadCmsDir = '/cms';
+$uploadBase = '/uploads';
+$uploadDir = $uploadBase.$uploadCmsDir.$uploadImagesDir;
+
+$dir = $_SERVER["DOCUMENT_ROOT"];
 
 $_FILES['file']['type'] = strtolower($_FILES['file']['type']);
 
@@ -18,20 +21,29 @@ if (
     || $_FILES['file']['type'] == 'image/jpeg'
     || $_FILES['file']['type'] == 'image/pjpeg')
 {
+    //create dir if it does not exists
+    if (!file_exists($dir.$uploadBase)) {
+        mkdir($dir.$uploadBase);
+    }
+    if (!file_exists($dir.$uploadBase.$uploadCmsDir)) {
+        mkdir($dir.$uploadBase.$uploadCmsDir);
+    }
+    if (!file_exists($dir.$uploadDir)) {
+        mkdir($dir.$uploadDir);
+    }
+
     // setting file's mysterious name
     $filename = md5(date('YmdHis')).'.jpg';
-    $file = $dir.$filename;
+    $file = $dir.$uploadDir.'/'.$filename;
 
     // copying
-    copy($_FILES['file']['tmp_name'], $file);
+    move_uploaded_file($_FILES['file']['tmp_name'], $file);
 
     // displaying file
     $array = array(
-        'filelink' => $uploadDir.$filename
+        'filelink' => $uploadDir.'/'.$filename
     );
 
     echo stripslashes(json_encode($array));
 
 }
-
-?>
