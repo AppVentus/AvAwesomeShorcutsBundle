@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class AvAwesomeShorcutsExtension extends Extension
+class AvAwesomeShortcutsExtension extends Extension
 {
     /**
      * {@inheritDoc}
@@ -24,6 +24,6 @@ class AvAwesomeShorcutsExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
-        $container->setParameter('av_awesome_shorcuts', $config);
+        $container->setParameter('av_awesome_shortcuts', $config);
     }
 }

@@ -23,7 +23,7 @@ class ContactBuilder{
             if ($form->isValid()) {
                 $data = $form->getData();
 
-                    $body = $this->renderView("AvAwesomeShorcutsBundle:Contact:email.html.twig", array(
+                    $body = $this->renderView("AvAwesomeShortcutsBundle:Contact:email.html.twig", array(
                         'name' => $data->name,
                         'email' => $data->email,
                         'message' => $data->message,

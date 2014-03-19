@@ -18,7 +18,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('av_awesome_shorcuts');
+        $rootNode = $treeBuilder->root('av_awesome_shortcuts');
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
@@ -31,9 +31,11 @@ class Configuration implements ConfigurationInterface
                     ->children()
                         ->scalarNode('from')->defaultValue('you@yourcompany.com')->cannotBeEmpty()->end()
                         ->scalarNode('to')->defaultValue('you@yourcompany.com')->cannotBeEmpty()->end()
-                        ->scalarNode('template')->defaultValue('AvAwesomeShorcutsBundle:Contacter:form.html.twig')->cannotBeEmpty()->end()
-                        ->scalarNode('mail_template')->defaultValue('AvAwesomeShorcutsBundle:Contact:email.html.twig')->cannotBeEmpty()->end()
+                        ->scalarNode('template')->defaultValue('AvAwesomeShortcutsBundle:Contact:form.html.twig')->cannotBeEmpty()->end()
+                        ->scalarNode('mail_template')->defaultValue('AvAwesomeShortcutsBundle:Contact:email.html.twig')->cannotBeEmpty()->end()
                         ->scalarNode('subject')->defaultValue('new message')->cannotBeEmpty()->end()
+                        ->scalarNode('modal_title')->defaultValue('Contact us')->cannotBeEmpty()->end()
+                        ->scalarNode('modal_body_content')->defaultValue('')->end()
                     ->end()
                 ->end()
             ->end();

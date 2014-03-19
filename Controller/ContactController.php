@@ -15,63 +15,68 @@ class ContactController extends AwesomeController
 {
 
     /**
-    * @Route("/contact", name="Default_ContactForm")
+    * @Route("/", name="Default_ContactForm")
     * @Template()
     */
     public function formAction()
     {
 
-        $contactParameters = $this->container->getParameter('av_awesome_shorcuts');
+        $contactParameters = $this->container->getParameter('av_awesome_shortcuts');
 
-                // $template = $contactParameters['template'];
-                $from = $contactParameters['contact_form']['from'];
-                $to = $contactParameters['contact_form']['to'];
-                $subject = $contactParameters['contact_form']['subject'];
-                $template = $contactParameters['contact_form']['template'];
-                $mailTemplate = $contactParameters['contact_form']['mail_template'];
+        // $template = $contactParameters['template'];
+        $from = $contactParameters['contact_form']['from'];
+        $to = $contactParameters['contact_form']['to'];
+        $subject = $contactParameters['contact_form']['subject'];
+        $template = $contactParameters['contact_form']['template'];
+        $mailTemplate = $contactParameters['contact_form']['mail_template'];
         $form = $this->get('form.factory')->create(new ContactType());
         $request = $this->getRequest();
 
         if ('POST' === $request->getMethod()) {
-            $form->bindRequest($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $data = $form->getData();
 
-                    $body = $this->renderView($mailTemplate, array(
-                        'name' => $data->name,
-                        'email' => $data->email,
-                        'message' => $data->message,
-                    ));
-                $this->createAndSendMail($subject,
-                 $from,
-                 $to,
-                 $body,
-                 'text/html', $data->email);
+                $body = $this->renderView($mailTemplate, array(
+                    'name'    => $data['name'],
+                    'email'   => $data['email'],
+                    'message' => $data['message'],
+                ));
+                $this->createAndSendMail(
+                    $subject,
+                    $from,
+                    $to,
+                    $body,
+                    'text/html',
+                    $data['email']);
 
-                $this->toastr("Votre message à été envoyé");
+                // @todo Use a basic method to alert by using a config
+                // $this->toastr("Votre message à été envoyé");
                 if($this->getRequest()->isXmlHttpRequest()){
-                    return new Response("<strong>Votre message a bien été envoyé</strong>");
+                    return new Response("<strong>Merci.</strong><br/>Votre message a bien été envoyé.");
                 }else{
                     return $this->redirectReferer();
                 }
             }
         }
 
-                if($this->getRequest()->isXmlHttpRequest()){
-                            return $this->render($template, array(
-                                        'form' => $form->createView()
-                            ));
-                }else{
-                    $this->get('session')->getFlashBag()->add('modal', array(
-                        "button_class"=>"hide",
-                        "body"=>$this->renderView($template, array(
-                                            'form' => $form->createView()
-                                        )),
-                        "title"=>"Contactez nous"
-                        ));
-                    return $this->redirectReferer();
-                }
+        if ($this->getRequest()->isXmlHttpRequest()) {
+            return $this->render($template, array(
+                        'form' => $form->createView()
+            ));
+        } else {
+            $this->get('session')->getFlashBag()->add('modal', array(
+                "button_class" => "hide",
+                "body"         => $this->renderView($template, array(
+                                    'form' => $form->createView(),
+                                    'body' => $contactParameters['contact_form']['modal_body_content']
+                                )),
+                "title"        => $contactParameters['contact_form']['modal_title']
+                ));
+
+            return $this->redirectReferer();
+        }
 
         return array(
                 'form' => $form->createView()

@@ -3,14 +3,14 @@
     {
         "stylesheets":
         {
-            "redactor": "@AvAwesomeShorcutsBundle/Resources/public/libs/redactor/redactor.css"
+            "redactor": "@AvAwesomeShortcutsBundle/Resources/public/libs/redactor/redactor.css"
         },
         "javascripts":
         {
             "redactor":
             [
-                "@AvAwesomeShorcutsBundle/Resources/public/libs/redactor/redactor.min.js",
-                "@AvAwesomeShorcutsBundle/Resources/public/libs/redactor/redactor.fr.js"
+                "@AvAwesomeShortcutsBundle/Resources/public/libs/redactor/redactor.min.js",
+                "@AvAwesomeShortcutsBundle/Resources/public/libs/redactor/redactor.fr.js"
             ]
         }
     }

@@ -1,4 +1,4 @@
-AvAwesomeShorcutsBundle
+AvAwesomeShortcutsBundle
 =======================
 
 ## Installation
@@ -28,7 +28,7 @@ Dans votre AppKernel.php ajouter les lignes suivantes :
     {
         $bundles = array(
             // ...
-            new AppVentus\Awesome\ShortcutsBundle\AvAwesomeShorcutsBundle(),
+            new AppVentus\Awesome\ShortcutsBundle\AvAwesomeShortcutsBundle(),
         );
     }
 
@@ -40,8 +40,8 @@ Dans le fichier config.yml ajouter les lignes suivantes :
     twig:
         form:
             resources:
-                - 'AvAwesomeShorcutsBundle::fields.html.twig'
+                - 'AvAwesomeShortcutsBundle::fields.html.twig'
 
 Dans votre fichier de layout charger les fichiers suivants :
-    '@AvAwesomeShorcutsBundle/Resources/public/css/datepicker.css'
-    '@AvAwesomeShorcutsBundle/Resources/public/js/bootstrap-datepicker.js'
+    '@AvAwesomeShortcutsBundle/Resources/public/css/datepicker.css'
+    '@AvAwesomeShortcutsBundle/Resources/public/js/bootstrap-datepicker.js'
