@@ -3,7 +3,9 @@
 {{ block('textarea_widget') }}
 
 <script type="text/javascript">
+    $(document).ready(function(){
         $('#{{ id }}').redactor({{ form.vars.redactor_settings|raw }});
+    });
 </script>
     {% endspaceless %}
 {% endblock redactor_widget %}
