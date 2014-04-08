@@ -9,7 +9,7 @@ services:
     av.shorcuts:
         class: AppVentus\Awesome\ShortcutsBundle\Service\ShortcutService
         arguments:
-            - '@white_october.swiftmailer_db.spool'
+            - '?@white_october.swiftmailer_db.spool'
             - '@mailer'
 
     gedmo.urlizer:

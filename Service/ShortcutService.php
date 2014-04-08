@@ -39,6 +39,11 @@ class ShortcutService
     {
         $mailerSpool = $this->mailerSpool;
 
+        //the mailer spool might not have been installed
+        if ($mailerSpool === null) {
+            throw \Exception('The mailer spool service is null, please check that the first argument of av.shorcuts exists. You might have not installed white_october.swiftmailer.');
+        }
+
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
             ->setFrom($from)
