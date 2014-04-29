@@ -252,8 +252,9 @@ abstract class AwesomeController extends BaseController
      */
     function getBrowser()
     {
+
         $u_agent  = $_SERVER['HTTP_USER_AGENT'];
-        $bname    = 'Unknown';
+        $bname    = $u_agent;
         $platform = 'Unknown';
         $version  = '';
 
