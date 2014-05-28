@@ -11,7 +11,10 @@ services:
         arguments:
             - "@?white_october.swiftmailer_db.spool"
             - '@mailer'
-
+    av.form_error_service:
+        class: AppVentus\Awesome\ShortcutsBundle\Service\FormErrorService
+        arguments:
+            - "@translator"
     gedmo.urlizer:
         class: Gedmo\Sluggable\Util\Urlizer
 
