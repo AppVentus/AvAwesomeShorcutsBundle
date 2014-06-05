@@ -8,6 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Translation\Translator;
  * This service provides functions of the shortcut bundle.
  *
  * @author Thomas Beaujean <thomas@appventus.com>
+ *
+ * ref: av.shorcuts
  */
 class ShortcutService
 {
