@@ -8,21 +8,26 @@ use Symfony\Bundle\FrameworkBundle\Translation\Translator;
  * This service provides functions of the shortcut bundle.
  *
  * @author Thomas Beaujean <thomas@appventus.com>
+ *
+ * ref: av.shorcuts
  */
 class ShortcutService
 {
     protected $mailerSpool = null;
     protected $mailer = null;
+    protected $session = null;
 
     /**
      * Constructor
      * @param unknown $mailerSpool
      * @param unknown $mailer
+     * @param Session $session
      */
-    public function __construct($mailerSpool, $mailer)
+    public function __construct($mailerSpool, $mailer, $session)
     {
         $this->mailerSpool = $mailerSpool;
         $this->mailer = $mailer;
+        $this->session = $session;
     }
 
     /**
@@ -87,6 +92,31 @@ class ShortcutService
 
         //send the message
         $mailer->send($message);
+    }
+
+    /**
+     * Get the session property
+     *
+     * @param string $name
+     * @param string $default
+     */
+    public function getSession($name, $default = null)
+    {
+        $session = $this->session;
+
+        return $session->get($name, $default);
+    }
+
+    /**
+     * Set the session
+     *
+     * @param string $name
+     * @param string $value
+     */
+    public function setSession($name, $value)
+    {
+        $session = $this->session;
+        $session->set($name, $value);
     }
 }
 

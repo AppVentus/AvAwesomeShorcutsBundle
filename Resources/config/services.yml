@@ -10,7 +10,8 @@ services:
         class: AppVentus\Awesome\ShortcutsBundle\Service\ShortcutService
         arguments:
             - "@?white_october.swiftmailer_db.spool"
-            - '@mailer'
+            - "@mailer"
+            - "@session"
     av.form_error_service:
         class: AppVentus\Awesome\ShortcutsBundle\Service\FormErrorService
         arguments:
