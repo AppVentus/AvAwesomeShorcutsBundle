@@ -16,6 +16,7 @@ services:
         class: AppVentus\Awesome\ShortcutsBundle\Service\FormErrorService
         arguments:
             - "@translator"
+            - "%kernel.debug%"
     gedmo.urlizer:
         class: Gedmo\Sluggable\Util\Urlizer
 

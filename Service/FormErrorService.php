@@ -12,16 +12,17 @@ use JMS\TranslationBundle\Annotation\Ignore;
  */
 class FormErrorService
 {
-    private $translator = null;
+    protected $translator = null;
 
     /**
      * The constructor
      *
      * @param Translator $translator The translator service
      */
-    public function __construct($translator)
+    public function __construct($translator, $debug)
     {
         $this->translator = $translator;
+        $this->debug = $debug;
     }
 
     /**
@@ -49,6 +50,16 @@ class FormErrorService
                 $label = $this->translator->trans(/** @Ignore */$labelId).': ';
             } else {
                 $label = '';
+            }
+
+            //in case of dev mode, we display the item that is a problem
+            $debug = $this->debug;
+            if ($debug) {
+                $cause = $error->getCause();
+                if ($cause !== null) {
+                    $causePropertyPath = $cause->getPropertyPath();
+                    $errors .= ' '.$causePropertyPath;
+                }
             }
 
             //add the error
