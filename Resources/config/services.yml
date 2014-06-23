@@ -9,9 +9,14 @@ services:
     av.shorcuts:
         class: AppVentus\Awesome\ShortcutsBundle\Service\ShortcutService
         arguments:
-            - '?@white_october.swiftmailer_db.spool'
-            - '@mailer'
-
+            - "@?white_october.swiftmailer_db.spool"
+            - "@mailer"
+            - "@session"
+    av.form_error_service:
+        class: AppVentus\Awesome\ShortcutsBundle\Service\FormErrorService
+        arguments:
+            - "@translator"
+            - "%kernel.debug%"
     gedmo.urlizer:
         class: Gedmo\Sluggable\Util\Urlizer
 
@@ -32,3 +37,10 @@ services:
         class: AppVentus\Awesome\ShortcutsBundle\Form\Type\RedactorType
         tags:
             - { name: form.type, alias: redactor }
+
+    form.type.select2:
+        class: AppVentus\Awesome\ShortcutsBundle\Form\Type\Select2Type
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: form.type, alias: select2 }
