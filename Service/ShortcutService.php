@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Router;
  *
  * @author Thomas Beaujean <thomas@appventus.com>
  *
- * ref: av.shorcuts
+ * ref: av.shortcuts
  */
 class ShortcutService
 {

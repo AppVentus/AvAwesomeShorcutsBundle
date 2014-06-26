@@ -6,7 +6,7 @@ services:
 
     av.tool:
         class: AppVentus\Awesome\ShortcutsBundle\Utils\Utils
-    av.shorcuts:
+    av.shortcuts:
         class: AppVentus\Awesome\ShortcutsBundle\Service\ShortcutService
         arguments:
             - "@?white_october.swiftmailer_db.spool"
