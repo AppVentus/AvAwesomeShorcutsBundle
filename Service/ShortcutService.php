@@ -3,6 +3,7 @@
 namespace AppVentus\Awesome\ShortcutsBundle\Service;
 
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
+use Symfony\Component\Routing\Router;
 
 /**
  * This service provides functions of the shortcut bundle.
@@ -16,6 +17,7 @@ class ShortcutService
     protected $mailerSpool = null;
     protected $mailer = null;
     protected $session = null;
+    protected $router = null;
 
     /**
      * Constructor
@@ -23,11 +25,12 @@ class ShortcutService
      * @param unknown $mailer
      * @param Session $session
      */
-    public function __construct($mailerSpool, $mailer, $session)
+    public function __construct($mailerSpool, $mailer, $session, Router $router)
     {
         $this->mailerSpool = $mailerSpool;
         $this->mailer = $mailer;
         $this->session = $session;
+        $this->router = $router;
     }
 
     /**
@@ -130,5 +133,22 @@ class ShortcutService
         $session->set($name, $value);
     }
 
+    /**
+     * Generate the url
+     *
+     * @param string                $route
+     * @param array                 $parameters
+     * @param UrlGeneratorInterface $referenceType
+     *
+     * @return string The url
+     */
+    public function generateUrl($route, $parameters = array(), $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH)
+    {
+        $router = $this->router;
+
+        $url = $router->generate($route, $parameters, $referenceType);
+
+        return $url;
+    }
 }
 
