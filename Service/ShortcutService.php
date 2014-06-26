@@ -4,6 +4,7 @@ namespace AppVentus\Awesome\ShortcutsBundle\Service;
 
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Component\Routing\Router;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * This service provides functions of the shortcut bundle.
