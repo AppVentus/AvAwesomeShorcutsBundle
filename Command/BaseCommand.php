@@ -76,6 +76,16 @@ abstract class BaseCommand extends ContainerAwareCommand
     }
 
     /**
+     * Get service
+     *
+     * @return service
+     */
+    protected function get($service)
+    {
+        return $this->getContainer()->get($service);
+    }
+
+    /**
      * Write the error to the log and the output
      *
      * @param string $message
