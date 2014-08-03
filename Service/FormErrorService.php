@@ -16,8 +16,8 @@ class FormErrorService
 
     /**
      * The constructor
-     *
      * @param Translator $translator The translator service
+     * @param booleand   $debug      Is debug mode enabled ? It will be verbose then.
      */
     public function __construct($translator, $debug)
     {
@@ -35,9 +35,10 @@ class FormErrorService
      *
      * @return string A string representation of all errors
      */
-    public function getRecursiveReadableErrors($form, $withChildren = true)
+    public function getRecursiveReadableErrors($form, $withChildren = true, $translationDomain = null, $level = 0)
     {
         $errors = '';
+        $translationDomain = $translationDomain ? $translationDomain : $form->getConfig()->getOption('translation_domain');
 
         //the errors of the fields
         foreach ($form->getErrors() as $error) {
@@ -47,14 +48,14 @@ class FormErrorService
 
             //get the translated label
             if ($labelId !== null) {
-                $label = $this->translator->trans(/** @Ignore */$labelId).': ';
+                $label = $this->translator->trans(/** @Ignore */$labelId, array(), $translationDomain).' : ';
             } else {
-                $label = '';
+                $label = $translationDomain.'';
             }
 
             //in case of dev mode, we display the item that is a problem
-            $debug = $this->debug;
-            if ($debug) {
+            //getCause cames in Symfony 2.5 version, this is just a fallback to avoid BC with previous versions
+            if ($this->debug && method_exists($error, 'getCause')) {
                 $cause = $error->getCause();
                 if ($cause !== null) {
                     $causePropertyPath = $cause->getPropertyPath();
@@ -70,7 +71,8 @@ class FormErrorService
         if ($withChildren) {
             //we parse the children
             foreach ($form->getIterator() as $key => $child) {
-                if ($err = $this->getRecursiveReadableErrors($child, $withChildren)) {
+                $level++;
+                if ($err = $this->getRecursiveReadableErrors($child, $withChildren, $translationDomain, $level)) {
                     $errors .= $err;
                 }
             }
