@@ -17,8 +17,8 @@ abstract class AwesomeController extends BaseController
     /**
      * Shortcut to dispatch event.
      *
-     * @param string $eventName
-     * @param Event  $event
+     * @param  string $eventName
+     * @param  Event  $event
      * @return void
      */
     public function dispatchEvent($eventName, Event $event = null)
@@ -137,7 +137,7 @@ abstract class AwesomeController extends BaseController
         $em->flush();
     }
 
-    public function createAndQueueMail($subject, $from, $to, $body, $contentType = null, $replyTo = null)
+    public function createAndQueueMail($subject, $from, $to, $body, $contentType = null, $replyTo = null, $attachments = array())
     {
         $controller = $this->getRequest()->attributes->get('_controller');
 
@@ -147,6 +147,10 @@ abstract class AwesomeController extends BaseController
             ->setTo($to)
             ->setBody($body, $contentType)
             ;
+        foreach ($attachments as $attachment) {
+            $message
+               ->attach(\Swift_Attachment::newInstance($attachment, $attachment->getClientOriginalName(), $attachment->getMimeType()));
+        }
         if ($replyTo != null) {
             $message->setReplyTo($replyTo);
         }
@@ -154,7 +158,7 @@ abstract class AwesomeController extends BaseController
         $this->get('white_october.swiftmailer_db.spool')->queueMessage($message, $controller);
     }
 
-    public function createAndSendMail($subject, $from, $to, $body, $contentType = null, $replyTo = null, $mailer = 'mailer')
+    public function createAndSendMail($subject, $from, $to, $body, $contentType = null, $replyTo = null, $attachments = null, $mailer = 'mailer')
     {
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
@@ -162,6 +166,10 @@ abstract class AwesomeController extends BaseController
             ->setTo($to)
             ->setBody($body, $contentType)
             ;
+        foreach ($attachments as $attachment) {
+            $message
+              ->attach(Swift_Attachment::newInstance($attachment, $attachment->getClientOriginalName(), $attachment->getMimeType()));
+        }
         if ($replyTo != null) {
             $message->setReplyTo($replyTo);
         }
@@ -213,7 +221,8 @@ abstract class AwesomeController extends BaseController
         return $url === $this->container->get('request')->headers->get('referer');
     }
 
-    public function findEntityOr404($entity, $criteria) {
+    public function findEntityOr404($entity, $criteria)
+    {
         if (method_exists($this, 'get'.$entity.'Repository')) {
             $obj = $this->{'get'.$entity.'Repository'}()->findOneBy($criteria);
         } else {
@@ -250,7 +259,7 @@ abstract class AwesomeController extends BaseController
      *
      * @return string
      */
-    function getBrowser()
+    public function getBrowser()
     {
 
         $u_agent  = $_SERVER['HTTP_USER_AGENT'];
@@ -261,42 +270,29 @@ abstract class AwesomeController extends BaseController
         //First get the platform?
         if (preg_match('/linux/i', $u_agent)) {
             $platform = 'linux';
-        }
-        elseif (preg_match('/macintosh|mac os x/i', $u_agent)) {
+        } elseif (preg_match('/macintosh|mac os x/i', $u_agent)) {
             $platform = 'mac';
-        }
-        elseif (preg_match('/windows|win32/i', $u_agent)) {
+        } elseif (preg_match('/windows|win32/i', $u_agent)) {
             $platform = 'windows';
         }
 
         // Next get the name of the useragent yes seperately and for good reason
-        if(preg_match('/MSIE/i',$u_agent) && !preg_match('/Opera/i',$u_agent))
-        {
+        if (preg_match('/MSIE/i',$u_agent) && !preg_match('/Opera/i',$u_agent)) {
             $bname = 'Internet Explorer';
             $ub = "MSIE";
-        }
-        elseif(preg_match('/Firefox/i',$u_agent))
-        {
+        } elseif (preg_match('/Firefox/i',$u_agent)) {
             $bname = 'Mozilla Firefox';
             $ub = "Firefox";
-        }
-        elseif(preg_match('/Chrome/i',$u_agent))
-        {
+        } elseif (preg_match('/Chrome/i',$u_agent)) {
             $bname = 'Google Chrome';
             $ub = "Chrome";
-        }
-        elseif(preg_match('/Safari/i',$u_agent))
-        {
+        } elseif (preg_match('/Safari/i',$u_agent)) {
             $bname = 'Apple Safari';
             $ub = "Safari";
-        }
-        elseif(preg_match('/Opera/i',$u_agent))
-        {
+        } elseif (preg_match('/Opera/i',$u_agent)) {
             $bname = 'Opera';
             $ub = "Opera";
-        }
-        elseif(preg_match('/Netscape/i',$u_agent))
-        {
+        } elseif (preg_match('/Netscape/i',$u_agent)) {
             $bname = 'Netscape';
             $ub = "Netscape";
         }
@@ -314,14 +310,12 @@ abstract class AwesomeController extends BaseController
         if ($i != 1) {
             //we will have two since we are not using 'other' argument yet
             //see if version is before or after the name
-            if (strripos($u_agent,"Version") < strripos($u_agent,$ub)){
+            if (strripos($u_agent,"Version") < strripos($u_agent,$ub)) {
                 $version= $matches['version'][0];
-            }
-            else {
+            } else {
                 $version= $matches['version'][1];
             }
-        }
-        else {
+        } else {
             $version= $matches['version'][0];
         }
 
@@ -332,7 +326,5 @@ abstract class AwesomeController extends BaseController
 
         return $bname . ' ' . $version . ' ' . $platform;
     }
-
-
 
 }
