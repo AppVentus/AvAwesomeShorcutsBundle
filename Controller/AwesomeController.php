@@ -147,7 +147,7 @@ abstract class AwesomeController extends BaseController
             ->setTo($to)
             ->setBody($body, $contentType)
             ;
-        foreach ($attachments as $attachment) {
+        foreach ((array) $attachments as $attachment) {
             $message
                ->attach(\Swift_Attachment::newInstance($attachment, $attachment->getClientOriginalName(), $attachment->getMimeType()));
         }
@@ -166,7 +166,7 @@ abstract class AwesomeController extends BaseController
             ->setTo($to)
             ->setBody($body, $contentType)
             ;
-        foreach ($attachments as $attachment) {
+        foreach ((array) $attachments as $attachment) {
             $message
               ->attach(Swift_Attachment::newInstance($attachment, $attachment->getClientOriginalName(), $attachment->getMimeType()));
         }
