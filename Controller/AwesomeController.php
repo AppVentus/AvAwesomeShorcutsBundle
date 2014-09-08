@@ -137,7 +137,7 @@ abstract class AwesomeController extends BaseController
         $em->flush();
     }
 
-    public function createAndQueueMail($subject, $from, $to, $body, $contentType = null, $replyTo = null, $attachments = array())
+    public function createAndQueueMail($subject, $from, $to, $body, $contentType = null, $replyTo = null, $attachments = null)
     {
         $controller = $this->getRequest()->attributes->get('_controller');
 
@@ -147,12 +147,17 @@ abstract class AwesomeController extends BaseController
             ->setTo($to)
             ->setBody($body, $contentType)
             ;
-        foreach ((array) $attachments as $attachment) {
-            $message
-               ->attach(\Swift_Attachment::newInstance($attachment, $attachment->getClientOriginalName(), $attachment->getMimeType()));
-        }
         if ($replyTo != null) {
             $message->setReplyTo($replyTo);
+        }
+
+        //attachment = array($attachment['file'], $attachment['name'], $attachment['contentType'])
+
+        foreach ((array) $attachments as $attachment) {
+            if (isset($attachment['file']) && isset($attachment['name']) && isset($attachment['contentType']) ) {
+                $message
+                    ->attach(\Swift_Attachment::newInstance($attachment['file'], $attachment['name'], $attachment['contentType']));
+            }
         }
 
         $this->get('white_october.swiftmailer_db.spool')->queueMessage($message, $controller);
@@ -164,14 +169,19 @@ abstract class AwesomeController extends BaseController
             ->setSubject($subject)
             ->setFrom($from)
             ->setTo($to)
-            ->setBody($body, $contentType)
-            ;
-        foreach ((array) $attachments as $attachment) {
-            $message
-              ->attach(Swift_Attachment::newInstance($attachment, $attachment->getClientOriginalName(), $attachment->getMimeType()));
-        }
+            ->setBody($body, $contentType);
+
         if ($replyTo != null) {
             $message->setReplyTo($replyTo);
+        }
+
+        //attachment = array($attachment['file'], $attachment['name'], $attachment['contentType'])
+
+        foreach ((array) $attachments as $attachment) {
+            if (isset($attachment['file']) && isset($attachment['name']) && isset($attachment['contentType']) ) {
+                $message
+                    ->attach(\Swift_Attachment::newInstance($attachment['file'], $attachment['name'], $attachment['contentType']));
+            }
         }
         $this->get($mailer)->send($message);
     }
