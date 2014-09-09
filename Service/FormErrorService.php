@@ -64,7 +64,7 @@ class FormErrorService
             }
 
             //add the error
-            $errors .= $label.$error->getMessage()."\n";
+            $errors .= $label.$this->translator->trans(/** @Ignore */$error->getMessage(), array(), $translationDomain)."\n";
         }
 
         //do we parse the children
