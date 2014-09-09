@@ -50,7 +50,7 @@ class FormErrorService
             if ($labelId !== null) {
                 $label = $this->translator->trans(/** @Ignore */$labelId, array(), $translationDomain).' : ';
             } else {
-                $label = $translationDomain.'';
+                $label = '';
             }
 
             //in case of dev mode, we display the item that is a problem
