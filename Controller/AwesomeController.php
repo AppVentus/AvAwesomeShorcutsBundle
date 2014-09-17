@@ -137,7 +137,7 @@ abstract class AwesomeController extends BaseController
         $em->flush();
     }
 
-    public function createAndQueueMail($subject, $from, $to, $body, $contentType = null, $replyTo = null, $attachments = array())
+    public function createAndQueueMail($subject, $from, $to, $body, $contentType = 'text/html', $replyTo = null, $attachments = array())
     {
         $controller = $this->getRequest()->attributes->get('_controller');
 
@@ -158,7 +158,7 @@ abstract class AwesomeController extends BaseController
         $this->get('white_october.swiftmailer_db.spool')->queueMessage($message, $controller);
     }
 
-    public function createAndSendMail($subject, $from, $to, $body, $contentType = null, $replyTo = null, $attachments = null, $mailer = 'mailer')
+    public function createAndSendMail($subject, $from, $to, $body, $contentType = 'text/html', $replyTo = null, $attachments = array(), $mailer = 'mailer')
     {
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
@@ -168,7 +168,7 @@ abstract class AwesomeController extends BaseController
             ;
         foreach ($attachments as $attachment) {
             $message
-              ->attach(Swift_Attachment::newInstance($attachment, $attachment->getClientOriginalName(), $attachment->getMimeType()));
+              ->attach(\Swift_Attachment::newInstance($attachment, $attachment->getClientOriginalName(), $attachment->getMimeType()));
         }
         if ($replyTo != null) {
             $message->setReplyTo($replyTo);
