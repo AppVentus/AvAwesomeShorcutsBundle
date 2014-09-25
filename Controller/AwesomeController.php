@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @author Leny BERNARD <leny@appventus.com>
@@ -48,6 +49,18 @@ abstract class AwesomeController extends BaseController
     }
 
     /**
+     * Add thing to flashbag.
+     *
+     * @param string $content
+     * @param string $type
+     * @param string $layout
+     */
+    public function setFlash($name, $value)
+    {
+        $this->get('session')->getFlashBag()->add($name,$value);
+    }
+
+    /**
      * Add toastr message to flashbag.
      *
      * @param string $content           Captain Obvious ? We have to setup a content
@@ -66,36 +79,6 @@ abstract class AwesomeController extends BaseController
                 'translationDomain' => $translationDomain
             )
         );
-    }
-
-    /**
-     * Add thing to flashbag.
-     *
-     * @param string $content
-     * @param string $type
-     * @param string $layout
-     */
-    public function setFlash($name, $value)
-    {
-        $this->get('session')->getFlashBag()->add($name,$value);
-    }
-
-    /**
-     * Return logged user
-     *
-     * @return User
-     */
-    public function getUser()
-    {
-        if (null === $token = $this->container->get('security.context')->getToken()) {
-            return null;
-        }
-
-        if (!is_object($user = $token->getUser())) {
-            return null;
-        }
-
-        return $user;
     }
 
     public function isGranted($attributes, $object = null)
@@ -126,6 +109,16 @@ abstract class AwesomeController extends BaseController
     }
 
     /**
+     * Shortcut to entity manager
+     *
+     * @return \Doctrine\Common\Persistence\ObjectManager
+     */
+    public function getEntityManager()
+    {
+        return $this->getDoctrine()->getManager();
+    }
+
+    /**
      * Shortcut to remove and flush an entity.
      *
      * @param object $entity
@@ -148,8 +141,11 @@ abstract class AwesomeController extends BaseController
             ->setBody($body, $contentType)
             ;
         foreach ($attachments as $attachment) {
-            $message
-               ->attach(\Swift_Attachment::newInstance($attachment, $attachment->getClientOriginalName(), $attachment->getMimeType()));
+            if ($attachment instanceof UploadedFile) {
+                $message
+                   ->attach(\Swift_Attachment::newInstance($attachment, $attachment->getClientOriginalName(), $attachment->getMimeType()));
+            }
+
         }
         if ($replyTo != null) {
             $message->setReplyTo($replyTo);
@@ -166,24 +162,18 @@ abstract class AwesomeController extends BaseController
             ->setTo($to)
             ->setBody($body, $contentType)
             ;
+
         foreach ($attachments as $attachment) {
-            $message
-              ->attach(\Swift_Attachment::newInstance($attachment, $attachment->getClientOriginalName(), $attachment->getMimeType()));
+            if ($attachment instanceof UploadedFile) {
+                $message
+                  ->attach(\Swift_Attachment::newInstance($attachment, $attachment->getClientOriginalName(), $attachment->getMimeType()));
+            }
+
         }
         if ($replyTo != null) {
             $message->setReplyTo($replyTo);
         }
         $this->get($mailer)->send($message);
-    }
-
-    /**
-     * Shortcut to entity manager
-     *
-     * @return \Doctrine\Common\Persistence\ObjectManager
-     */
-    public function getEntityManager()
-    {
-        return $this->getDoctrine()->getManager();
     }
 
     public function isGrantedOr403($attributes, $object = null, $message = null)
@@ -195,12 +185,35 @@ abstract class AwesomeController extends BaseController
         throw $this->createAccessDeniedException($message);
     }
 
+    public function createAccessDeniedException($message = 'Access Denied', \Exception $previous = null)
+    {
+        return new AccessDeniedException($message, $previous);
+    }
+
     public function getCurrentUserOr403()
     {
         $user = $this->getUser();
 
         if (null === $user) {
             throw $this->createAccessDeniedException('This user does not have access to this section.');
+        }
+
+        return $user;
+    }
+
+    /**
+     * Return logged user
+     *
+     * @return User
+     */
+    public function getUser()
+    {
+        if (null === $token = $this->container->get('security.context')->getToken()) {
+            return null;
+        }
+
+        if (!is_object($user = $token->getUser())) {
+            return null;
         }
 
         return $user;
@@ -241,11 +254,6 @@ abstract class AwesomeController extends BaseController
         }
 
         return $obj;
-    }
-
-    public function createAccessDeniedException($message = 'Access Denied', \Exception $previous = null)
-    {
-        return new AccessDeniedException($message, $previous);
     }
 
     public function preExecute()
