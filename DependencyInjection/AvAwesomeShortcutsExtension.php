@@ -26,6 +26,5 @@ class AvAwesomeShortcutsExtension extends Extension
         $loader->load('services.yml');
         $container->setParameter('av_awesome_shortcuts', $config);
         $container->setParameter('av_awesome_shortcuts.contact_form', $config['contact_form']);
-        $container->setParameter('av_awesome_shortcuts.alert', $config['alert']);
     }
 }

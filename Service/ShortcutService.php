@@ -16,7 +16,6 @@ class ShortcutService
     protected $mailer = null;
     protected $session = null;
     protected $router = null;
-    protected $alertParameters = null;
 
     /**
      * Constructor
@@ -24,15 +23,13 @@ class ShortcutService
      * @param unknown $mailer
      * @param Session $session
      * @param Router  $router
-     * @param array   $alertParameters
      */
-    public function __construct($mailerSpool, $mailer, $session, Router $router, $alertParameters)
+    public function __construct($mailerSpool, $mailer, $session, Router $router)
     {
         $this->mailerSpool = $mailerSpool;
         $this->mailer = $mailer;
         $this->session = $session;
         $this->router = $router;
-        $this->alertParameters = $alertParameters;
     }
 
     /**
@@ -162,70 +159,48 @@ class ShortcutService
 
     /**
      * Alert message to flashbag.
-     * @param string $content           Captain Obvious ? We have to setup a content
-     * @param string $type              Success or Error ? Warning or Info ? You choose !
-     * @param string $layout            How the noty should be rendered ? topRight ? top Left ? bottom ? Go to doc to know more
-     * @param string $translationDomain The translation domain to use to translate strings
+     * @param string $content Captain Obvious ? We have to setup a content
+     * @param string $type    Success or Error ? Warning or Info ? You choose !
      */
-    public function alert($content, $type = 'success', $layout = null, $translationDomain = null)
+    public function alert($content, $type = 'success')
     {
-        $engine = $this->alertParameters['engine'];
-        $layout = $layout === null ? $this->alertParameters['layout'] : $layout;
-        $translationDomain = $translationDomain === null ? $this->alertParameters['translationDomain'] : $translationDomain;
-
-        $this->setFlash(
-            $engine,
-            array(
-                'type'              => $type,
-                'layout'            => $layout,
-                'body'              => $content,
-                'translationDomain' => $translationDomain
-            )
-        );
+        $this->setFlash($type, $content);
     }
 
     /**
      * congrat user through flashbag : all happened successfully
-     * @param string $content           The main message
-     * @param string $layout            How the alert should be rendered ? topRight ? top Left ? bottom ? Go to doc to know more
-     * @param string $translationDomain The translation domain to use to translate strings
+     * @param string|array $content
      */
-    public function congrat($content, $layout = null, $translationDomain = null)
+    public function congrat($content)
     {
-        $this->alert($content, 'success', $layout, $translationDomain);
+        $this->alert($content, 'success');
     }
 
     /**
      * Warn user through flashbag: something requires attention
-     * @param string $content           The main message
-     * @param string $layout            How the alert should be rendered ? topRight ? top Left ? bottom ? Go to doc to know more
-     * @param string $translationDomain The translation domain to use to translate strings
+     * @param string|array $content
      */
-    public function warn($content, $layout = null, $translationDomain = null)
+    public function warn($content)
     {
-        $this->alert($content, 'warning', $layout, $translationDomain);
+        $this->alert($content, 'warning');
     }
 
     /**
      * Inform user through flashbag: someething have to be said
-     * @param string $content           The main message
-     * @param string $layout            How the alert should be rendered ? topRight ? top Left ? bottom ? Go to doc to know more
-     * @param string $translationDomain The translation domain to use to translate strings
+     * @param string|array $content
      */
-    public function inform($content, $layout = null, $translationDomain = null)
+    public function inform($content)
     {
-        $this->alert($content, 'info', $layout, $translationDomain);
+        $this->alert($content, 'info');
     }
 
     /**
      * Scold user through flashbag: someething went wrong
-     * @param string $content           The main message
-     * @param string $layout            How the alert should be rendered ? topRight ? top Left ? bottom ? Go to doc to know more
-     * @param string $translationDomain The translation domain to use to translate strings
+     * @param string|array $content
      */
-    public function scold($content, $layout = null, $translationDomain = null)
+    public function scold($content)
     {
-        $this->alert($content, 'error', $layout, $translationDomain);
+        $this->alert($content, 'error');
     }
 
     /**

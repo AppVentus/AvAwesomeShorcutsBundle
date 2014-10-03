@@ -38,14 +38,6 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('modal_body_content')->defaultValue('')->end()
                     ->end()
                 ->end()
-                ->arrayNode('alert')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('engine')->defaultValue('toastr')->cannotBeEmpty()->end()
-                        ->scalarNode('layout')->defaultValue('topRight')->cannotBeEmpty()->end()
-                        ->scalarNode('translationDomain')->defaultValue('flash')->cannotBeEmpty()->end()
-                    ->end()
-                ->end()
             ->end();
 
         return $treeBuilder;

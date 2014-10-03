@@ -107,14 +107,4 @@ ou dans tout controller héritant de notre AwesomeController :
     $this->inform('Did you know ?');             // Information
     $this->scold('Oups something went wrong !'); // Error
 
-Pour définir la configuration par défaut des alertes de votre site, vous pouvez ajouter ceci dans votre config.yml :
-
-```yml
-av_awesome_shortcuts:
-    alert:
-        engine: "toastr"              #Could be noty, modal, toastr
-        layout: "top-right"           #Is relative according to the selected engine
-        translationDomain: "messages" #Where do you want to store the translation strings
-
-```
 
