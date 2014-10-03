@@ -25,5 +25,7 @@ class AvAwesomeShortcutsExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
         $container->setParameter('av_awesome_shortcuts', $config);
+        $container->setParameter('av_awesome_shortcuts.contact_form', $config['contact_form']);
+        $container->setParameter('av_awesome_shortcuts.alert', $config['alert']);
     }
 }

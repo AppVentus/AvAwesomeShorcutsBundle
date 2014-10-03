@@ -13,6 +13,7 @@ services:
             - "@mailer"
             - "@session"
             - "@router"
+            - "%av_awesome_shortcuts.alert%"
     av.form_error_service:
         class: AppVentus\Awesome\ShortcutsBundle\Service\FormErrorService
         arguments:

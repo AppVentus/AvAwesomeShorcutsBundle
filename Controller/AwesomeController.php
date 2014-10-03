@@ -28,24 +28,56 @@ abstract class AwesomeController extends BaseController
     }
 
     /**
-     * Add noty message to flashbag.
+     * Alert message to flashbag.
      *
      * @param string $content           Captain Obvious ? We have to setup a content
      * @param string $type              Success or Error ? Warning or Info ? You choose !
      * @param string $layout            How the noty should be rendered ? topRight ? top Left ? bottom ? Go to doc to know more
      * @param string $translationDomain The translation domain to use to translate strings
      */
-    public function noty($content, $type = 'success', $layout = 'topRight', $translationDomain = 'flash')
+    public function alert($content, $type = 'success', $layout = null, $translationDomain = null)
     {
-        $this->setFlash(
-            'noty',
-            array(
-                'type'              => $type,
-                'layout'            => $layout,
-                'body'              => $content,
-                'translationDomain' => $translationDomain
-            )
-        );
+        $this->get('av.shortcuts')->alert($content, $type, $layout, $translationDomain);
+    }
+
+    /**
+     * congrat user through flashbag : all happened successfully
+     *
+     * @param string $content
+     */
+    public function congrat($content, $layout = null, $translationDomain = null)
+    {
+        $this->get('av.shortcuts')->congrat($content, $layout, $translationDomain);
+    }
+
+    /**
+     * Warn user through flashbag: something requires attention
+     *
+     * @param string $content
+     */
+    public function warn($content, $layout = null, $translationDomain = null)
+    {
+        $this->get('av.shortcuts')->warn($content, $layout, $translationDomain);
+    }
+
+    /**
+     * Inform user through flashbag: someething have to be said
+     *
+     * @param string $content
+     */
+    public function inform($content, $layout = null, $translationDomain = null)
+    {
+        $this->get('av.shortcuts')->inform($content, $layout, $translationDomain);
+    }
+
+    /**
+     * Scold user through flashbag: someething went wrong
+     *
+     * @param string $content
+     */
+    public function scold($content, $layout = null, $translationDomain = null)
+    {
+        $this->get('av.shortcuts')->scold($content, $layout, $translationDomain);
     }
 
     /**
@@ -57,28 +89,7 @@ abstract class AwesomeController extends BaseController
      */
     public function setFlash($name, $value)
     {
-        $this->get('session')->getFlashBag()->add($name,$value);
-    }
-
-    /**
-     * Add toastr message to flashbag.
-     *
-     * @param string $content           Captain Obvious ? We have to setup a content
-     * @param string $type              Success or Error ? Warning or Info ? You choose !
-     * @param string $layout            How the toastr should be rendered ? topRight ? top Left ? bottom ? Go to doc to know more
-     * @param string $translationDomain The translation domain to use to translate strings
-     */
-    public function toastr($content, $type = 'success', $layout = 'topRight', $translationDomain = 'flash')
-    {
-        $this->setFlash(
-            'toastr',
-            array(
-                'type'              => $type,
-                'layout'            => $layout,
-                'body'              => $content,
-                'translationDomain' => $translationDomain
-            )
-        );
+        $this->get('av.shortcuts')->setFlash($name, $value);
     }
 
     public function isGranted($attributes, $object = null)
