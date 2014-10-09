@@ -2,6 +2,9 @@
 
 namespace AppVentus\Awesome\ShortcutsBundle\Repository;
 
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
+
 /**
  * Base Entity Repository trait
  *
@@ -55,6 +58,6 @@ trait AwesomeRepositoryTrait
      */
     public function run($method = 'getResult', $hydrationMode = Query::HYDRATE_OBJECT)
     {
-        return $this->getInstance()->getQuery()->$method($hydrationMode);
+        return $this->qb->getQuery()->$method($hydrationMode);
     }
 }
