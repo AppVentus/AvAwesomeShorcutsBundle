@@ -53,11 +53,17 @@ trait AwesomeRepositoryTrait
      * Run active query
      * @param method        $method        The method to run
      * @param hydrationMode $hydrationMode How the results will be (Object ? Array )
+     * @param boolean       $autoClear     AutoClear means reset active instance
      *
      * @return array()
      */
-    public function run($method = 'getResult', $hydrationMode = Query::HYDRATE_OBJECT)
+    public function run($method = 'getResult', $hydrationMode = Query::HYDRATE_OBJECT, $autoClear = true)
     {
-        return $this->qb->getQuery()->$method($hydrationMode);
+        $results = $this->qb->getQuery()->$method($hydrationMode);
+        if ($autoClear) {
+            $this->clearInstance();
+        }
+
+        return $results;
     }
 }
