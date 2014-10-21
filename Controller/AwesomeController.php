@@ -151,7 +151,9 @@ abstract class AwesomeController extends BaseController
         foreach ($attachments as $attachment) {
             if ($attachment instanceof UploadedFile) {
                 $message
-                   ->attach(\Swift_Attachment::newInstance($attachment, $attachment->getClientOriginalName(), $attachment->getMimeType()));
+                   ->attach(\Swift_Attachment::fromPath($attachment->getPathName())
+                            ->setFilename($attachment->getClientOriginalName())
+                    );
             }
 
         }
@@ -174,14 +176,15 @@ abstract class AwesomeController extends BaseController
         foreach ($attachments as $attachment) {
             if ($attachment instanceof UploadedFile) {
                 $message
-                  ->attach(\Swift_Attachment::newInstance($attachment, $attachment->getClientOriginalName(), $attachment->getMimeType()));
+                  ->attach(\Swift_Attachment::fromPath($attachment->getPathName())
+                            ->setFilename($attachment->getClientOriginalName())
+                    );
             }
 
         }
         if ($replyTo != null) {
             $message->setReplyTo($replyTo);
         }
-
         $this->get($mailer)->send($message);
     }
 
