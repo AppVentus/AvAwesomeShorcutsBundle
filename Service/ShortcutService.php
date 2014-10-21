@@ -2,14 +2,11 @@
 
 namespace AppVentus\Awesome\ShortcutsBundle\Service;
 
-use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Component\Routing\Router;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * This service provides functions of the shortcut bundle.
- *
- * @author Thomas Beaujean <thomas@appventus.com>
  *
  * ref: av.shortcuts
  */
@@ -25,6 +22,7 @@ class ShortcutService
      * @param unknown $mailerSpool
      * @param unknown $mailer
      * @param Session $session
+     * @param Router  $router
      */
     public function __construct($mailerSpool, $mailer, $session, Router $router)
     {
@@ -77,7 +75,6 @@ class ShortcutService
      * @param string $body
      * @param string $contentType
      * @param string $replyTo
-     * @param string $mailer
      */
     public function createAndSendMail($subject, $from, $to, $body, $contentType = null, $replyTo = null)
     {
@@ -98,7 +95,13 @@ class ShortcutService
         $mailer->send($message);
     }
 
-    public function randomPassword() {
+    /**
+     * Generate a random password
+     *
+     * @return string
+     */
+    public function randomPassword()
+    {
         $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
         $pass = array(); //remember to declare $pass as an array
         $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
@@ -106,14 +109,16 @@ class ShortcutService
             $n = rand(0, $alphaLength);
             $pass[] = $alphabet[$n];
         }
+
         return implode($pass); //turn the array into a string
     }
 
     /**
      * Get the session property
-     *
      * @param string $name
      * @param string $default
+     *
+     * @return string
      */
     public function getSession($name, $default = null)
     {
@@ -151,5 +156,60 @@ class ShortcutService
 
         return $url;
     }
-}
 
+    /**
+     * Alert message to flashbag.
+     * @param string $content Captain Obvious ? We have to setup a content
+     * @param string $type    Success or Error ? Warning or Info ? You choose !
+     */
+    public function alert($content, $type = 'success')
+    {
+        $this->setFlash($type, $content);
+    }
+
+    /**
+     * congrat user through flashbag : all happened successfully
+     * @param string|array $content
+     */
+    public function congrat($content)
+    {
+        $this->alert($content, 'success');
+    }
+
+    /**
+     * Warn user through flashbag: something requires attention
+     * @param string|array $content
+     */
+    public function warn($content)
+    {
+        $this->alert($content, 'warning');
+    }
+
+    /**
+     * Inform user through flashbag: someething have to be said
+     * @param string|array $content
+     */
+    public function inform($content)
+    {
+        $this->alert($content, 'info');
+    }
+
+    /**
+     * Scold user through flashbag: someething went wrong
+     * @param string|array $content
+     */
+    public function scold($content)
+    {
+        $this->alert($content, 'error');
+    }
+
+    /**
+     * Add thing to flashbag.
+     * @param string $name
+     * @param string $value
+     */
+    public function setFlash($name, $value)
+    {
+        $this->session->getFlashBag()->add($name, $value);
+    }
+}

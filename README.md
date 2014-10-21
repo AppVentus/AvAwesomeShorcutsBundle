@@ -70,11 +70,41 @@ Le FormErrorService permet de transformer les erreurs d'un formulaire (ainsi que
 Exemple dans un controller:
 
 		$form = ...  //some form
-		
+
 		if ($form->isValid()) {
 			...
 		} else {
 			$formErrorService = $this->get('av.form_error_service');
 			$errorsAsString = $formErrorService->getRecursiveReadableErrors($form);
 		}
-	
+
+# Intégration avec AvAlertifyBundle
+
+Ce bundle apporte son lot de raccourcis pour le bundle AvAlertify afin d'uniformiser toutes les alertes de votre application.
+Au lieu d'utiliser :
+
+
+    $this->get('session')->getFlashBag()->add('noty', array(
+            'type'              => $type,
+            'layout'            => $layout,
+            'body'              => $content,
+            'translationDomain' => $translationDomain
+        )
+    );
+
+ou pire
+
+    $this->session->getFlashBag()->add('success', 'Congratulations !');
+
+On pourra désormais utiliser les racourcis suivants depuis le service av.shortcuts :
+
+    $this->container->get('av.shortcuts')->congrat($content, $layout, $translationDomain);
+
+ou dans tout controller héritant de notre AwesomeController :
+
+    $this->congrat('Congratulations !');         // Success
+    $this->warn('Careful, this is important !'); // Warning
+    $this->inform('Did you know ?');             // Information
+    $this->scold('Oups something went wrong !'); // Error
+
+

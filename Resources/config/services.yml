@@ -45,3 +45,8 @@ services:
             - "@doctrine.orm.entity_manager"
         tags:
             - { name: form.type, alias: select2 }
+
+    twig.awesome_extension:
+        class: AppVentus\Awesome\ShortcutsBundle\Twig\AwesomeExtension
+        tags:
+            - { name: twig.extension }
