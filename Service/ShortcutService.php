@@ -42,7 +42,7 @@ class ShortcutService
      * @param string $contentType
      * @param string $replyTo
      */
-    public function createAndQueueMail($subject, $from, $to, $body, $contentType = null, $replyTo = null)
+    public function createAndQueueMail($subject, $from, $to, $body, $contentType = null, $replyTo = null, $attachments = array())
     {
         $mailerSpool = $this->mailerSpool;
 
@@ -61,6 +61,15 @@ class ShortcutService
         if ($replyTo != null) {
             $message->setReplyTo($replyTo);
         }
+        
+        //add attachments
+        foreach ($attachments as $attachment) {
+            if ($attachment instanceof UploadedFile) {
+                $message
+                   ->attach(\Swift_Attachment::fromPath($attachment->getPathName())
+                            ->setFilename($attachment->getClientOriginalName())
+                    );
+            }
 
         //queue the message
         $mailerSpool->queueMessage($message);
@@ -76,7 +85,7 @@ class ShortcutService
      * @param string $contentType
      * @param string $replyTo
      */
-    public function createAndSendMail($subject, $from, $to, $body, $contentType = null, $replyTo = null)
+    public function createAndSendMail($subject, $from, $to, $body, $contentType = null, $replyTo = null, $attachments = array())
     {
         $mailer = $this->mailer;
 
@@ -89,6 +98,17 @@ class ShortcutService
         //add the reply to
         if ($replyTo != null) {
             $message->setReplyTo($replyTo);
+        }
+        
+        //add attachments
+        foreach ($attachments as $attachment) {
+            if ($attachment instanceof UploadedFile) {
+                $message
+                   ->attach(\Swift_Attachment::fromPath($attachment->getPathName())
+                            ->setFilename($attachment->getClientOriginalName())
+                    );
+            }
+
         }
 
         //send the message
