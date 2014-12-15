@@ -13,6 +13,7 @@ use Doctrine\ORM\QueryBuilder;
 trait AwesomeRepositoryTrait
 {
     private $qb;
+    private $mainAlias;
 
     /**
      * Get query builder instance
@@ -20,9 +21,17 @@ trait AwesomeRepositoryTrait
      *
      * @return QueryBuilder The active or default query builder
      */
-    public function getInstance($alias)
+    public function getInstance($alias = null)
     {
-        return $this->qb ? $this->qb : $this->createQueryBuilder($alias);
+        if (!$alias && !$this->mainAlias) {
+            $namespace= explode("\\", $this->_entityName);
+            $alias = strtolower(end($namespace));
+            $this->mainAlias = $alias;
+        }elseif ($alias){
+            $this->mainAlias = $alias;
+        }
+
+        return $this->qb ? $this->qb : $this->createQueryBuilder($this->mainAlias);
     }
 
     /**
