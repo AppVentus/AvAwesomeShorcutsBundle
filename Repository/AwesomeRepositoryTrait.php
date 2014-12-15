@@ -25,7 +25,7 @@ trait AwesomeRepositoryTrait
     {
         if (!$alias && !$this->mainAlias) {
             $namespace= explode("\\", $this->_entityName);
-            $alias = uniqid(strtolower(end($namespace)).'_');
+            $alias = strtolower(end($namespace));
             $this->mainAlias = $alias;
         }elseif ($alias){
             $this->mainAlias = $alias;
