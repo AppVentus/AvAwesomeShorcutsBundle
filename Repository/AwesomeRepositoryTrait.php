@@ -31,7 +31,7 @@ trait AwesomeRepositoryTrait
             $this->mainAlias = $alias;
         }
 
-        return $this->qb ? $this->qb : $this->createQueryBuilder($this->mainAlias);
+        return $this->qb ? $this->qb : $this->qb = $this->createQueryBuilder($this->mainAlias);
     }
 
     /**
