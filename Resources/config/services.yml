@@ -21,11 +21,38 @@ services:
     gedmo.urlizer:
         class: Gedmo\Sluggable\Util\Urlizer
 
+    av.date.moment_format_converter:
+        class: AppVentus\Awesome\ShortcutsBundle\Date\MomentFormatConverter
+
     # Form
-    form.type.datepicker:
-        class: AppVentus\Awesome\ShortcutsBundle\Form\Type\DatepickerType
+    av.form.type.daterange:
+        class: AppVentus\Awesome\ShortcutsBundle\Form\Type\DateRangeType
+        arguments:
+            - "@translator"
         tags:
-            - { name: form.type, alias: datepicker }
+            - { name: form.type, alias: awesome_type_date_range }
+
+    av.form.type.datetime_range:
+        class: AppVentus\Awesome\ShortcutsBundle\Form\Type\DateTimeRangeType
+        arguments:
+            - "@translator"
+        tags:
+            - { name: form.type, alias: awesome_type_datetime_range }
+
+    av.form.type.date_picker:
+        class: AppVentus\Awesome\ShortcutsBundle\Form\Type\DatePickerType
+        arguments:
+            - "@av.date.moment_format_converter"
+        tags:
+            - { name: form.type, alias: awesome_type_date_picker }
+
+    av.form.type.datetime_picker:
+        class: AppVentus\Awesome\ShortcutsBundle\Form\Type\DateTimePickerType
+        arguments:
+            - "@av.date.moment_format_converter"
+        tags:
+            - { name: form.type, alias: awesome_type_datetime_picker }
+
     form.type.datemask:
         class: AppVentus\Awesome\ShortcutsBundle\Form\Type\DatemaskType
         tags:

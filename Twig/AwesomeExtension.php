@@ -7,7 +7,6 @@ namespace AppVentus\Awesome\ShortcutsBundle\Twig;
  */
 class AwesomeExtension extends \Twig_Extension
 {
-
     /**
      * register twig functions
      */
@@ -56,18 +55,18 @@ class AwesomeExtension extends \Twig_Extension
             setlocale(LC_TIME, 'fr_FR.UTF8'); //Seems to work on ubuntu only
         } elseif ('Darwin' == $uname[0]) {
             // MAC OS VERSION
-            setlocale(LC_TIME, 'fr_FR','fra'); //Seems to work on mac os only
+            setlocale(LC_TIME, 'fr_FR', 'fra'); //Seems to work on mac os only
         }
 
         if ($startDate == $endDate) {
-            return 'le ' . strftime('%d %B', $startDate->getTimestamp());
+            return 'le '.strftime('%d %B', $startDate->getTimestamp());
         } else {
             if ($startDate->format('Y') != $endDate->format('Y')) {
-                return 'du <span>' . strftime('%d %B %Y', $startDate->getTimestamp()) . '</span></span> au <span>' . strftime('%d %B %Y', $endDate->getTimestamp()).'</span>';
+                return 'du <span>'.strftime('%d %B %Y', $startDate->getTimestamp()).'</span></span> au <span>'.strftime('%d %B %Y', $endDate->getTimestamp()).'</span>';
             } elseif ($startDate->format('m') != $endDate->format('m')) {
-                return 'du <span>' . strftime('%d %B', $startDate->getTimestamp()) . '</span> au <span>' . strftime('%d %B %Y', $endDate->getTimestamp()).'</span>';
+                return 'du <span>'.strftime('%d %B', $startDate->getTimestamp()).'</span> au <span>'.strftime('%d %B %Y', $endDate->getTimestamp()).'</span>';
             } else {
-                return 'du <span>' . strftime('%d', $startDate->getTimestamp()) . '</span> au <span>' . strftime('%d %B %Y', $endDate->getTimestamp()).'</span>';
+                return 'du <span>'.strftime('%d', $startDate->getTimestamp()).'</span> au <span>'.strftime('%d %B %Y', $endDate->getTimestamp()).'</span>';
             }
         }
     }
@@ -79,5 +78,4 @@ class AwesomeExtension extends \Twig_Extension
     {
         return 'awesome';
     }
-
 }

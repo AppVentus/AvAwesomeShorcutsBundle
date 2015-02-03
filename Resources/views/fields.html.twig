@@ -10,24 +10,52 @@
     {% endspaceless %}
 {% endblock redactor_widget %}
 
-{% block datepicker_widget %}
+{% block awesome_type_date_picker_widget_html %}
+    {% if datepicker_use_button %}
+        <div class='input-group date' id='dp_{{ id }}'>
+    {% endif %}
+    {% set attr = attr|merge({'data-date-format': moment_format}) %}
+    {{ block('date_widget') }}
+    {% if datepicker_use_button %}
+            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+        </div>
+    {% endif %}
+{% endblock awesome_type_date_picker_widget_html %}
+
+{% block awesome_type_date_picker_widget %}
     {% spaceless %}
-        {{ block('form_widget_simple') }}
+        {{ block('awesome_type_date_picker_widget_html') }}
         <script type="text/javascript">
-            $(document).ready(function(){
-                $.fn.datepicker.DPGlobal.dates = {
-                    days: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"],
-                    daysShort: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"],
-                    daysMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa", "Di"],
-                    months: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Décembre"],
-                    monthsShort: ["Jan", "Fev", "Mar", "Avr", "Mai", "Juin", "Jui", "Aou", "Sep", "Oct", "Nov", "Déc"],
-                    today: "Aujourd'hui"
-                };
-                $('#{{ id }}').datepicker({{ form.vars.datepicker_settings|raw }});
+            jQuery(function ($) {
+                $('#{{ datepicker_use_button ? 'dp_' : '' }}{{ id }}').datetimepicker({{ dp_options|json_encode|raw }});
             });
         </script>
     {% endspaceless %}
-{% endblock datepicker_widget %}
+{% endblock awesome_type_date_picker_widget %}
+
+{% block awesome_type_datetime_picker_widget_html %}
+    {% if datepicker_use_button %}
+        <div class='input-group date' id='dtp_{{ id }}'>
+    {% endif %}
+    {% set attr = attr|merge({'data-date-format': moment_format}) %}
+    {{ block('datetime_widget') }}
+    {% if datepicker_use_button %}
+          <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+        </div>
+    {% endif %}
+{% endblock awesome_type_datetime_picker_widget_html %}
+
+{% block awesome_type_datetime_picker_widget %}
+    {% spaceless %}
+        {{ block('awesome_type_datetime_picker_widget_html') }}
+        <script type="text/javascript">
+            jQuery(function ($) {
+                $('#{{ datepicker_use_button ? 'dtp_' : '' }}{{ id }}').datetimepicker({{ dp_options|json_encode|raw }});
+            });
+        </script>
+    {% endspaceless %}
+{% endblock awesome_type_datetime_picker_widget %}
+
 
 {% block datemask_widget %}
     {% spaceless %}
@@ -39,6 +67,7 @@
         </script>
     {% endspaceless %}
 {% endblock datemask_widget %}
+
 {% block datemaskpicker_widget %}
     {% spaceless %}
     <div class="date" >
@@ -68,7 +97,6 @@
         </script>
     {% endspaceless %}
 {% endblock datemaskpicker_widget %}
-
 
 {% block select2_widget %}
 {# {{block('choice_widget')}} #}
