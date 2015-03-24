@@ -79,6 +79,7 @@ abstract class BasePickerType extends AbstractType
             'dp_show_today'            => true,
             'dp_view_mode'             => 'days',
             'dp_language'              => 'fr',
+            'dp_picker_position'       => null,
             'dp_default_date'          => '',
             'dp_disabled_dates'        => array(),
             'dp_enabled_dates'         => array(),
