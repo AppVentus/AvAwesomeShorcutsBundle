@@ -53,8 +53,9 @@ abstract class BasePickerType extends AbstractType
                 $dpKey = preg_replace_callback('/_([a-z])/', function ($c) {
                     return strtoupper($c[1]);
                 }, $dpKey);
-
-                $dpOptions[$dpKey] = $value;
+                if ($value !== null){
+                    $dpOptions[$dpKey] = $value;
+                }
             }
         }
 
@@ -81,8 +82,8 @@ abstract class BasePickerType extends AbstractType
             'dp_language'              => 'fr',
             'dp_picker_position'       => null,
             'dp_default_date'          => '',
-            'dp_start_view'            => '',
-            'dp_min_view'              => '',
+            'dp_start_view'            => null,
+            'dp_min_view'              => null,
             'dp_autoclose'             => false,
             'dp_format'                => 'dd/mm/yyyy hh:ii',
             'dp_disabled_dates'        => array(),
