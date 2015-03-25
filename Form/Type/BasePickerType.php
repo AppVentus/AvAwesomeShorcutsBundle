@@ -83,6 +83,7 @@ abstract class BasePickerType extends AbstractType
             'dp_default_date'          => '',
             'dp_start_view'            => '',
             'dp_min_view'              => '',
+            'dp_autoclose'             => false,
             'dp_format'                => 'dd/mm/yyyy hh:ii',
             'dp_disabled_dates'        => array(),
             'dp_enabled_dates'         => array(),
