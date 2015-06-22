@@ -31,7 +31,7 @@ class DatemaskType extends AbstractType
             'widget'      => 'single_text',
             'input'       => 'datetime',
             'format'      => 'dd/MM/yyyy',
-            'mask_option' => '11/11/1111',
+            'mask_option' => '00/00/0000',
             'help_block'  => 'format : 31/12/1980',
         ));
     }

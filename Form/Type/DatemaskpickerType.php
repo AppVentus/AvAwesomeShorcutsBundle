@@ -37,7 +37,7 @@ class DatemaskpickerType extends AbstractType
                 'weekStart' => 1,
                 'autoclose' => true,
             ),
-            'mask_option' => '11/11/1111',
+            'mask_option' => '00/00/0000',
             'help_block'  => 'format : 31/12/1980',
         ));
     }
