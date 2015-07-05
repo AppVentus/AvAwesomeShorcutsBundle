@@ -38,7 +38,7 @@ trait AwesomeRepositoryTrait
      * Set query builder instance
      * @param QueryBuilder $qb The queryBuilder
      *
-     * @return BaseEntityRepository This repository
+     * @return AwesomeRepositoryTrait This repository
      */
     public function setInstance(QueryBuilder $qb)
     {
@@ -49,7 +49,7 @@ trait AwesomeRepositoryTrait
 
     /**
      * Clears the current QueryBuilder instance
-     * @return BaseEntityRepository This repository
+     * @return AwesomeRepositoryTrait This repository
      */
     public function clearInstance()
     {
@@ -60,9 +60,9 @@ trait AwesomeRepositoryTrait
 
     /**
      * Run active query
-     * @param method        $method        The method to run
-     * @param hydrationMode $hydrationMode How the results will be (Object ? Array )
-     * @param boolean       $autoClear     AutoClear means reset active instance
+     * @param string  $method        The method to run
+     * @param string  $hydrationMode How the results will be (Object ? Array )
+     * @param boolean $autoClear     AutoClear means reset active instance
      *
      * @return array()
      */
