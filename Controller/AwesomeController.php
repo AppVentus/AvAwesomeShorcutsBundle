@@ -5,6 +5,7 @@ namespace AppVentus\Awesome\ShortcutsBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -266,6 +267,18 @@ abstract class AwesomeController extends BaseController
         }
 
         return $obj;
+    }
+
+    /**
+     * Shortcut to return the ajax alerts
+     *
+     * @return jsonResponse
+     **/
+    public function displayAjaxAlert()
+    {
+        $template = $this->get('templating')->render('AvAlertifyBundle:Modal:ajax.html.twig');
+
+        return new JsonResponse(array('html' => $template));
     }
 
     public function preExecute()
