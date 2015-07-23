@@ -9,7 +9,7 @@
         {
             "redactor":
             [
-                "@AvAwesomeShortcutsBundle/Resources/public/libs/redactor/redactor.min.js",
+                "@AvAwesomeShortcutsBundle/Resources/public/libs/redactor/redactor.js",
                 "@AvAwesomeShortcutsBundle/Resources/public/libs/redactor/redactor.fr.js"
             ]
         }
