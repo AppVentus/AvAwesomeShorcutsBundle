@@ -68,7 +68,7 @@ In your layout file, load the following files :
 ```
     '@AvAwesomeShortcutsBundle/Resources/public/css/datepicker.css'
     '@AvAwesomeShortcutsBundle/Resources/public/js/bootstrap-datepicker.js'
-``
+```
 
 # Using shortcuts
 
