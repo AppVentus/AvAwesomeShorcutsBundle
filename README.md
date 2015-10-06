@@ -1,26 +1,44 @@
-AvAwesomeShortcutsBundle
-=======================
+[![AppVentus](https://github.com/AppVentus/AvAlertifyBundle/blob/master/Media/appventus.png)](http://appventus.com)
 
-## Installation
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/AppVentus/AvAwesomeShorcutsBundle)
+[![License](https://img.shields.io/packagist/l/appventus/shortcuts-bundle.svg)](https://packagist.org/packages/appventus/shortcuts-bundle)
+[![Version](https://img.shields.io/packagist/v/appventus/shortcuts-bundle.svg)](https://packagist.org/packages/appventus/shortcuts-bundle)
+=============
 
-Cette procédure décrit l'installation du projet pour une utilisation dans une machine virtuelle vagrant.
+Awesome Shortcuts Bundle
+========================
 
-### Récupération du bundle
+## What is the point ?
+
+
+This bundle allows you to easily add and use shortcuts for your dev apps.
+
+## Install
+
+This procedure describes the installation of the project for use in a virtual machine vagrant.
+
+### Recovery Bundle
 #### Composer
 
-Ajouter les lignes suivantes dans votre composer.json :
+Add the following lines in your composer.json :
+
+```
     {
         "require": {
             "appventus/shortcuts-bundle": "dev-master"
         }
     }
+```
 
-Puis, executer la commande suivante :
+Then execute the following command:
+
+```
     php composer.phar update
+```
 
-### Activer le bundle
+### Bundle activation
 
-Dans votre AppKernel.php ajouter les lignes suivantes :
+In your AppKernel.php add the following lines :
 
     <?php
 
@@ -33,41 +51,46 @@ Dans votre AppKernel.php ajouter les lignes suivantes :
     }
 
 ## Configuration
+
 ### Twig
 
-Dans le fichier config.yml ajouter les lignes suivantes :
+Add the following lines in Config.yml :
+
+```
     # Twig Configuration
     twig:
         form:
             resources:
                 - 'AvAwesomeShortcutsBundle::fields.html.twig'
+```
 
-Dans votre fichier de layout charger les fichiers suivants :
+In your layout file, load the following files :
+```
     '@AvAwesomeShortcutsBundle/Resources/public/css/datepicker.css'
     '@AvAwesomeShortcutsBundle/Resources/public/js/bootstrap-datepicker.js'
+```
 
+# Using shortcuts
 
-# Utilisation des raccourcis
+A service allows the use of functions used in many applications.
 
-Un service permet d'utiliser des fonctions utilisées dans de nombreuses applications.
-
-Exemple dans un controller:
+Eg. in a controller:
 
 	$shorcutService = $this->get('av.shorcuts');
 	$shorcutService->getSession(...
 	$shorcutService->setSession(...
 	$shorcutService->createAndQueueMail(...
 	$shorcutService->createAndSendMail(...
-Voir le fichier ShortcutService pour la liste complète des raccourcis et de leurs paramêtres.
 
-# Le FormErrorService
-Il est fréquent que l'on soumette des formulaires en ajax.
+View [ShortcutService](https://github.com/talbotseb/AvAwesomeShorcutsBundle/blob/master/Service/ShortcutService.php) file for a complete list of shortcuts and their parametres.
 
-Dans ce cas on souhaite renvoyer les erreurs du formulaires en une chaîne de caractères.
+# FormErrorService
 
-Le FormErrorService permet de transformer les erreurs d'un formulaire (ainsi que ses sous-formulaires) en un string.
+As it is common to submit forms by ajax, it is desired to return the error forms of a string
 
-Exemple dans un controller:
+The FormErrorService transforms errors on a form (and its sub-forms) into a string.
+
+Eg. in a controller:
 
 		$form = ...  //some form
 
@@ -78,11 +101,11 @@ Exemple dans un controller:
 			$errorsAsString = $formErrorService->getRecursiveReadableErrors($form);
 		}
 
-# Intégration avec AvAlertifyBundle
+# Integration with [AvAlertifyBundle](https://github.com/AppVentus/AvAlertifyBundle)
 
-Ce bundle apporte son lot de raccourcis pour le bundle AvAlertify afin d'uniformiser toutes les alertes de votre application.
-Au lieu d'utiliser :
+This bundle brings a lot of shortcuts for AvAlertify bundle to standardize all alerts for your application.
 
+Instead of using:
 
     $this->get('session')->getFlashBag()->add('noty', array(
             'type'              => $type,
@@ -92,15 +115,15 @@ Au lieu d'utiliser :
         )
     );
 
-ou pire
+or worse
 
     $this->session->getFlashBag()->add('success', 'Congratulations !');
 
-On pourra désormais utiliser les racourcis suivants depuis le service av.shortcuts :
+We can now use the following shortcuts from the av.shortcuts Service :
 
     $this->container->get('av.shortcuts')->congrat($content, $layout, $translationDomain);
 
-ou dans tout controller héritant de notre AwesomeController :
+or any of our controller inheriting AwesomeController :
 
     $this->congrat('Congratulations !');         // Success
     $this->warn('Careful, this is important !'); // Warning
