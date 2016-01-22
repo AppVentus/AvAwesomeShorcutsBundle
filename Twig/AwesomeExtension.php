@@ -12,9 +12,9 @@ class AwesomeExtension extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return array(
-            'period_display' => new \Twig_Function_Method($this, 'periodDisplay', array('is_safe' => array('html'))),
-        );
+        return [
+            'period_display' => new \Twig_SimpleFunction('period_display', [$this, 'periodDisplay'], ['is_safe' => ['html']]),
+        ];
     }
 
     /**
@@ -23,7 +23,7 @@ class AwesomeExtension extends \Twig_Extension
     public function getFilters()
     {
         return array(
-            'distance_format' => new \Twig_Filter_Method($this, 'distanceFormat'),
+            'distance_format' => new \Twig_SimpleFilter('distance_format', [$this, 'distanceFormat']),
         );
     }
 
