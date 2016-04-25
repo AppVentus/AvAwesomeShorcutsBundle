@@ -108,7 +108,7 @@ abstract class AwesomeController extends BaseController
     /**
      * Shortcut to persist and flush an entity.
      *
-     * @param Object $entity
+     * @param mixed $entity
      */
     public function persistAndFlush($entity)
     {
@@ -281,7 +281,7 @@ abstract class AwesomeController extends BaseController
         return new JsonResponse(array('html' => $template));
     }
 
-    public function preExecute()
+    public function preAction()
     {
         $this->tool = $this->get('av.tool');
         $this->urlizer = $this->get('gedmo.urlizer');
