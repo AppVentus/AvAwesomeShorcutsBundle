@@ -7,31 +7,30 @@ use Symfony\Component\Console\Helper\FormatterHelper;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * A base abstract command that provides shortcuts to some useful tools for the project
+ * A base abstract command that provides shortcuts to some useful tools for the project.
  *
  * @codeCoverageIgnore
  */
 abstract class BaseCommand extends ContainerAwareCommand
 {
-
     private $formatter = null;
 
     /**
-     * Holds our instance of the EntityManager
+     * Holds our instance of the EntityManager.
      *
-     * @var $em
+     * @var
      */
     private $em;
 
     /**
-     * Holds our instance of the output
+     * Holds our instance of the output.
      *
-     * @var $output
+     * @var
      */
     protected $output;
 
     /**
-     * Display message in the console
+     * Display message in the console.
      *
      * @param OutputInterface $output  Le flux de sortie
      * @param string          $message Le message à afficher
@@ -50,7 +49,7 @@ abstract class BaseCommand extends ContainerAwareCommand
     }
 
     /**
-     * Get the entity manager
+     * Get the entity manager.
      *
      * @param string $managerName Nom du manager
      *
@@ -66,7 +65,7 @@ abstract class BaseCommand extends ContainerAwareCommand
     }
 
     /**
-     * Get the logger
+     * Get the logger.
      *
      * @return Logger The logger
      */
@@ -76,7 +75,7 @@ abstract class BaseCommand extends ContainerAwareCommand
     }
 
     /**
-     * Get service
+     * Get service.
      *
      * @return service
      */
@@ -86,7 +85,7 @@ abstract class BaseCommand extends ContainerAwareCommand
     }
 
     /**
-     * Write the error to the log and the output
+     * Write the error to the log and the output.
      *
      * @param string $message
      */
@@ -101,7 +100,7 @@ abstract class BaseCommand extends ContainerAwareCommand
     }
 
     /**
-     * Write the message to the log and the output
+     * Write the message to the log and the output.
      *
      * @param string $message
      */

@@ -19,27 +19,28 @@ class DatemaskpickerType extends AbstractType
             $settings = json_encode($options['options']);
         }
         $view->vars['datepicker_settings'] = $settings;
-        $view->vars['datemask_settings'] = json_encode($options["mask_option"]);
+        $view->vars['datemask_settings'] = json_encode($options['mask_option']);
     }
 
     /**
      * {@inheritdoc}
+     *
      * @see https://github.com/eternicode/bootstrap-datepicker
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'widget'  => 'single_text',
             'input'   => 'datetime',
             'format'  => 'dd/MM/yyyy',
-            'options' => array(
+            'options' => [
                 'format'    => 'dd/mm/yyyy',
                 'weekStart' => 1,
                 'autoclose' => true,
-            ),
+            ],
             'mask_option' => '00/00/0000',
             'help_block'  => 'format : 31/12/1980',
-        ));
+        ]);
     }
 
     /**
@@ -59,5 +60,4 @@ class DatemaskpickerType extends AbstractType
     {
         return 'datemaskpicker';
     }
-
 }

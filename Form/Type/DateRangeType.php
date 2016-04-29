@@ -4,8 +4,8 @@ namespace AppVentus\Awesome\ShortcutsBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class DateRangeType extends AbstractType
 {
@@ -20,16 +20,16 @@ class DateRangeType extends AbstractType
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('start', $options['start_field_type'], array_merge(array('required' => false), $options['start_field_options']));
-        $builder->add('end', $options['end_field_type'], array_merge(array('required' => false), $options['end_field_options']));
+        $builder->add('start', $options['start_field_type'], array_merge(['required' => false], $options['start_field_options']));
+        $builder->add('end', $options['end_field_type'], array_merge(['required' => false], $options['end_field_options']));
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -37,15 +37,15 @@ class DateRangeType extends AbstractType
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'start_field_options' => array(),
-            'end_field_options'   => array(),
+        $resolver->setDefaults([
+            'start_field_options' => [],
+            'end_field_options'   => [],
             'start_field_type'    => 'date',
             'end_field_type'      => 'date',
-        ));
+        ]);
     }
 }

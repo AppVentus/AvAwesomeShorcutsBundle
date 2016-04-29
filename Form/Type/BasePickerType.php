@@ -2,15 +2,14 @@
 
 namespace AppVentus\Awesome\ShortcutsBundle\Form\Type;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormView;
-use Symfony\Component\Form\FormInterface;
 use AppVentus\Awesome\ShortcutsBundle\Date\MomentFormatConverter;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 
 /**
- * Class BasePickerType (to factorize DatePickerType and DateTimePickerType code
+ * Class BasePickerType (to factorize DatePickerType and DateTimePickerType code.
  *
- * @package Sonata\CoreBundle\Form\Type
  *
  * @author Hugo Briand <briand@ekino.com>
  */
@@ -45,15 +44,15 @@ abstract class BasePickerType extends AbstractType
 
         $view->vars['type'] = 'text';
 
-        $dpOptions = array();
+        $dpOptions = [];
         foreach ($options as $key => $value) {
-            if (false !== strpos($key, "dp_")) {
+            if (false !== strpos($key, 'dp_')) {
                 // We remove 'dp_' and camelize the options names
                 $dpKey = substr($key, 3);
                 $dpKey = preg_replace_callback('/_([a-z])/', function ($c) {
                     return strtoupper($c[1]);
                 }, $dpKey);
-                if ($value !== null){
+                if ($value !== null) {
                     $dpOptions[$dpKey] = $value;
                 }
             }
@@ -64,13 +63,13 @@ abstract class BasePickerType extends AbstractType
     }
 
     /**
-     * Gets base default options for the date pickers
+     * Gets base default options for the date pickers.
      *
      * @return array
      */
     protected function getCommonDefaults()
     {
-        return array(
+        return [
             'widget'                   => 'single_text',
             'datepicker_use_button'    => true,
             'dp_pick_time'             => true,
@@ -86,22 +85,22 @@ abstract class BasePickerType extends AbstractType
             'dp_min_view'              => null,
             'dp_autoclose'             => false,
             'dp_format'                => 'dd/mm/yyyy hh:ii',
-            'dp_disabled_dates'        => array(),
-            'dp_enabled_dates'         => array(),
-            'dp_icons'                 => array(
+            'dp_disabled_dates'        => [],
+            'dp_enabled_dates'         => [],
+            'dp_icons'                 => [
                 'time' => 'fa fa-times',
                 'date' => 'fa fa-calendar',
                 'up'   => 'fa fa-chevron-up',
                 'down' => 'fa fa-chevron-down',
-            ),
+            ],
             'dp_use_strict'            => false,
             'dp_side_by_side'          => false,
-            'dp_days_of_week_disabled' => array(),
-        );
+            'dp_days_of_week_disabled' => [],
+        ];
     }
 
     /**
-     * Returns default format for type
+     * Returns default format for type.
      *
      * @return string
      */

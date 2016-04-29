@@ -3,12 +3,12 @@
 namespace AppVentus\Awesome\ShortcutsBundle\Twig;
 
 /**
- * Awesome twig extension
+ * Awesome twig extension.
  */
 class AwesomeExtension extends \Twig_Extension
 {
     /**
-     * register twig functions
+     * register twig functions.
      */
     public function getFunctions()
     {
@@ -18,7 +18,7 @@ class AwesomeExtension extends \Twig_Extension
     }
 
     /**
-     * register twig filters
+     * register twig filters.
      */
     public function getFilters()
     {
@@ -28,23 +28,23 @@ class AwesomeExtension extends \Twig_Extension
     }
 
     /**
-     * Return the distance with the unit (for example, call distance|distance_format and you will get Xm ou Xkm )
+     * Return the distance with the unit (for example, call distance|distance_format and you will get Xm ou Xkm ).
      */
     public function distanceFormat($distance)
     {
         if (number_format($distance, 0) == 0) {
             $distance = number_format($distance, 3) * 1000;
-            $unit = "m";
+            $unit = 'm';
         } else {
             $distance = number_format($distance, 0);
-            $unit = "km";
+            $unit = 'km';
         }
 
         return $distance.$unit;
     }
 
     /**
-     * Return a period for 2 dates
+     * Return a period for 2 dates.
      */
     public function periodDisplay($startDate, $endDate)
     {
@@ -72,7 +72,7 @@ class AwesomeExtension extends \Twig_Extension
     }
 
     /**
-     * get extension name
+     * get extension name.
      */
     public function getName()
     {

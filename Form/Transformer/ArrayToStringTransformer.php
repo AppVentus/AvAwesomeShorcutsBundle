@@ -1,4 +1,5 @@
 <?php
+
 namespace AppVentus\Awesome\ShortcutsBundle\Form\Transformer;
 
 use Doctrine\ORM\EntityManager;
@@ -10,23 +11,25 @@ class ArrayToStringTransformer implements DataTransformerInterface
     protected $class;
     protected $property;
 
-    public function __construct(EntityManager $em, $class, $property) {
+    public function __construct(EntityManager $em, $class, $property)
+    {
         error_log($property);
         $this->em = $em;
         $this->class = $class;
         $this->property = $property;
     }
 
-
     /**
      * @param mixed $array
+     *
      * @internal param mixed $string
+     *
      * @return array
      */
     public function reverseTransform($array)
     {
         if (is_array($array) && array_key_exists(0, $array)) {
-            $newIds = array();
+            $newIds = [];
             $ids = explode(',', $array[0]);
             $repo = $this->em->getRepository($this->class);
             $objects = $repo->findById($ids);
@@ -36,10 +39,10 @@ class ArrayToStringTransformer implements DataTransformerInterface
                     unset($ids[$key]);
                 }
             }
-            $objectsArray = array();
+            $objectsArray = [];
             foreach ($ids as $objectProperty) {
                 $object = new $this->class();
-                $object->{'set' . ucfirst($this->property)}($objectProperty);
+                $object->{'set'.ucfirst($this->property)}($objectProperty);
                 $this->em->persist($object);
                 $objectsArray[] = $object;
             }
@@ -53,19 +56,15 @@ class ArrayToStringTransformer implements DataTransformerInterface
         }
 
         return $array;
-
-
-
     }
 
     /**
      * @param mixed $array
+     *
      * @return string
      */
     public function transform($array)
     {
         return $array;
-   }
-
-
+    }
 }
