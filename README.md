@@ -130,4 +130,19 @@ or any of our controller inheriting AwesomeController :
     $this->inform('Did you know ?');             // Information
     $this->scold('Oups something went wrong !'); // Error
 
+# RedactorType
 
+Add the assetic injector redactor [tag](https://github.com/AppVentus/AvAwesomeShorcutsBundle/blob/master/Resources/config/assetic_injector.json) 
+
+```php
+$redactorOptions = [
+    'lang' => $this->request->getLocale(),
+    'plugins' => ['video'],
+    'buttons' => ['html', 'formatting', 'bold', 'italic', 'underline', 'deleted', 'unorderedlist', 'orderedlist', 'outdent', 'indent', 'image', 'video', 'link', 'alignment', 'horizontalrule'],
+    'imageUpload' => '/bundles/avawesomeshortcuts/libs/redactor/scripts/image_upload.php',
+];
+
+$builder->add('description', RedactorType::class, [
+	'options' => $redactorOptions
+]);
+```
