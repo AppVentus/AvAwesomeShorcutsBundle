@@ -10,7 +10,7 @@ $uploadCmsDir = '/cms';
 $uploadBase = '/uploads';
 $uploadDir = $uploadBase.$uploadCmsDir.$uploadImagesDir;
 
-$dir = $_SERVER["DOCUMENT_ROOT"];
+$dir = $_SERVER['DOCUMENT_ROOT'];
 
 $_FILES['file']['type'] = strtolower($_FILES['file']['type']);
 
@@ -19,8 +19,7 @@ if (
     || $_FILES['file']['type'] == 'image/jpg'
     || $_FILES['file']['type'] == 'image/gif'
     || $_FILES['file']['type'] == 'image/jpeg'
-    || $_FILES['file']['type'] == 'image/pjpeg')
-{
+    || $_FILES['file']['type'] == 'image/pjpeg') {
     //create dir if it does not exists
     if (!file_exists($dir.$uploadBase)) {
         mkdir($dir.$uploadBase);
@@ -40,10 +39,9 @@ if (
     move_uploaded_file($_FILES['file']['tmp_name'], $file);
 
     // displaying file
-    $array = array(
-        'filelink' => $uploadDir.'/'.$filename
-    );
+    $array = [
+        'filelink' => $uploadDir.'/'.$filename,
+    ];
 
     echo stripslashes(json_encode($array));
-
 }

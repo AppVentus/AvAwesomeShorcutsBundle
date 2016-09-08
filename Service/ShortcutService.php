@@ -2,8 +2,8 @@
 
 namespace AppVentus\Awesome\ShortcutsBundle\Service;
 
-use Symfony\Component\Routing\Router;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Routing\Router;
 
 /**
  * This service provides functions of the shortcut bundle.
@@ -18,7 +18,8 @@ class ShortcutService
     protected $router = null;
 
     /**
-     * Constructor
+     * Constructor.
+     *
      * @param unknown $mailerSpool
      * @param unknown $mailer
      * @param Session $session
@@ -33,7 +34,7 @@ class ShortcutService
     }
 
     /**
-     * Create a swift mail and queue it
+     * Create a swift mail and queue it.
      *
      * @param string $subject
      * @param string $from
@@ -42,7 +43,7 @@ class ShortcutService
      * @param string $contentType
      * @param string $replyTo
      */
-    public function createAndQueueMail($subject, $from, $to, $body, $contentType = null, $replyTo = null, $attachments = array())
+    public function createAndQueueMail($subject, $from, $to, $body, $contentType = null, $replyTo = null, $attachments = [])
     {
         $mailerSpool = $this->mailerSpool;
 
@@ -61,7 +62,7 @@ class ShortcutService
         if ($replyTo != null) {
             $message->setReplyTo($replyTo);
         }
-        
+
         //add attachments
         foreach ($attachments as $attachment) {
             if ($attachment instanceof UploadedFile) {
@@ -71,13 +72,13 @@ class ShortcutService
                     );
             }
         }
-        
+
         //queue the message
         $mailerSpool->queueMessage($message);
     }
 
     /**
-     * Create and mail and send it now
+     * Create and mail and send it now.
      *
      * @param string $subject
      * @param string $from
@@ -86,7 +87,7 @@ class ShortcutService
      * @param string $contentType
      * @param string $replyTo
      */
-    public function createAndSendMail($subject, $from, $to, $body, $contentType = null, $replyTo = null, $attachments = array())
+    public function createAndSendMail($subject, $from, $to, $body, $contentType = null, $replyTo = null, $attachments = [])
     {
         $mailer = $this->mailer;
 
@@ -100,7 +101,7 @@ class ShortcutService
         if ($replyTo != null) {
             $message->setReplyTo($replyTo);
         }
-        
+
         //add attachments
         foreach ($attachments as $attachment) {
             if ($attachment instanceof UploadedFile) {
@@ -109,7 +110,6 @@ class ShortcutService
                             ->setFilename($attachment->getClientOriginalName())
                     );
             }
-
         }
 
         //send the message
@@ -117,14 +117,14 @@ class ShortcutService
     }
 
     /**
-     * Generate a random password
+     * Generate a random password.
      *
      * @return string
      */
     public function randomPassword()
     {
-        $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
-        $pass = array(); //remember to declare $pass as an array
+        $alphabet = 'abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789';
+        $pass = []; //remember to declare $pass as an array
         $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
         for ($i = 0; $i < 8; $i++) {
             $n = rand(0, $alphaLength);
@@ -135,7 +135,8 @@ class ShortcutService
     }
 
     /**
-     * Get the session property
+     * Get the session property.
+     *
      * @param string $name
      * @param string $default
      *
@@ -149,7 +150,7 @@ class ShortcutService
     }
 
     /**
-     * Set the session
+     * Set the session.
      *
      * @param string $name
      * @param string $value
@@ -161,7 +162,7 @@ class ShortcutService
     }
 
     /**
-     * Generate the url
+     * Generate the url.
      *
      * @param string                $route
      * @param array                 $parameters
@@ -169,7 +170,7 @@ class ShortcutService
      *
      * @return string The url
      */
-    public function generateUrl($route, $parameters = array(), $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH)
+    public function generateUrl($route, $parameters = [], $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH)
     {
         $router = $this->router;
 
@@ -180,6 +181,7 @@ class ShortcutService
 
     /**
      * Alert message to flashbag.
+     *
      * @param string $content Captain Obvious ? We have to setup a content
      * @param string $type    Success or Error ? Warning or Info ? You choose !
      */
@@ -189,7 +191,8 @@ class ShortcutService
     }
 
     /**
-     * congrat user through flashbag : all happened successfully
+     * congrat user through flashbag : all happened successfully.
+     *
      * @param string|array $content
      */
     public function congrat($content)
@@ -198,7 +201,8 @@ class ShortcutService
     }
 
     /**
-     * Warn user through flashbag: something requires attention
+     * Warn user through flashbag: something requires attention.
+     *
      * @param string|array $content
      */
     public function warn($content)
@@ -207,7 +211,8 @@ class ShortcutService
     }
 
     /**
-     * Inform user through flashbag: someething have to be said
+     * Inform user through flashbag: someething have to be said.
+     *
      * @param string|array $content
      */
     public function inform($content)
@@ -216,7 +221,8 @@ class ShortcutService
     }
 
     /**
-     * Scold user through flashbag: someething went wrong
+     * Scold user through flashbag: someething went wrong.
+     *
      * @param string|array $content
      */
     public function scold($content)
@@ -226,6 +232,7 @@ class ShortcutService
 
     /**
      * Add thing to flashbag.
+     *
      * @param string $name
      * @param string $value
      */

@@ -6,7 +6,7 @@ use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 
 /**
- * Base Entity Repository trait
+ * Base Entity Repository trait.
  *
  * This trait was written to give some cool actions to use in a repo.
  */
@@ -16,7 +16,8 @@ trait AwesomeRepositoryTrait
     private $mainAlias;
 
     /**
-     * Get query builder instance
+     * Get query builder instance.
+     *
      * @param string $alias The entity alias
      *
      * @return QueryBuilder The active or default query builder
@@ -24,10 +25,10 @@ trait AwesomeRepositoryTrait
     public function getInstance($alias = null)
     {
         if (!$alias && !$this->mainAlias) {
-            $namespace= explode("\\", $this->_entityName);
+            $namespace = explode('\\', $this->_entityName);
             $alias = strtolower(end($namespace));
             $this->mainAlias = $alias;
-        }elseif ($alias){
+        } elseif ($alias) {
             $this->mainAlias = $alias;
         }
 
@@ -35,7 +36,8 @@ trait AwesomeRepositoryTrait
     }
 
     /**
-     * Set query builder instance
+     * Set query builder instance.
+     *
      * @param QueryBuilder $qb The queryBuilder
      *
      * @return AwesomeRepositoryTrait This repository
@@ -48,7 +50,8 @@ trait AwesomeRepositoryTrait
     }
 
     /**
-     * Clears the current QueryBuilder instance
+     * Clears the current QueryBuilder instance.
+     *
      * @return AwesomeRepositoryTrait This repository
      */
     public function clearInstance()
@@ -59,10 +62,11 @@ trait AwesomeRepositoryTrait
     }
 
     /**
-     * Run active query
-     * @param string  $method        The method to run
-     * @param string  $hydrationMode How the results will be (Object ? Array )
-     * @param boolean $autoClear     AutoClear means reset active instance
+     * Run active query.
+     *
+     * @param string $method        The method to run
+     * @param string $hydrationMode How the results will be (Object ? Array )
+     * @param bool   $autoClear     AutoClear means reset active instance
      *
      * @return array()
      */

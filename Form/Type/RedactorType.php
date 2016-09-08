@@ -3,7 +3,6 @@
 namespace AppVentus\Awesome\ShortcutsBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -28,9 +27,9 @@ class RedactorType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         // @see http://redactorjs.com/docs/settings
-        $resolver->setDefaults(array(
-            'options' => array(),
-        ));
+        $resolver->setDefaults([
+            'options' => [],
+        ]);
     }
 
     /**
@@ -50,5 +49,4 @@ class RedactorType extends AbstractType
     {
         return 'redactor';
     }
-
 }

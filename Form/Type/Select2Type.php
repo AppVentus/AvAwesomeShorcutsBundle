@@ -2,20 +2,20 @@
 
 namespace AppVentus\Awesome\ShortcutsBundle\Form\Type;
 
+use AppVentus\Awesome\ShortcutsBundle\Form\Transformer\ArrayToStringTransformer;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use AppVentus\Awesome\ShortcutsBundle\Form\Transformer\ArrayToStringTransformer;
 
 class Select2Type extends AbstractType
 {
-
     protected $em;
 
-    public function __construct(EntityManager $em) {
+    public function __construct(EntityManager $em)
+    {
         $this->em = $em;
     }
 
@@ -34,13 +34,11 @@ class Select2Type extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-
         $view->vars['enable_creation'] = $options['enable_creation'];
-        $view->vars['tags'] = array();
+        $view->vars['tags'] = [];
         foreach ($view->vars['choices'] as $choice) {
             $view->vars['tags'][$choice->data->getId()] = $choice->data->__toString();
         }
-
 
         if ($view->vars['multiple']) {
             $view->vars['tag_values'] = '';
@@ -74,9 +72,8 @@ class Select2Type extends AbstractType
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'enable_creation' => true
-        ));
+        $resolver->setDefaults([
+            'enable_creation' => true,
+        ]);
     }
-
 }

@@ -6,9 +6,8 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Class DatePickerType
+ * Class DatePickerType.
  *
- * @package Sonata\CoreBundle\Form\Type
  *
  * @author Hugo Briand <briand@ekino.com>
  */
@@ -19,11 +18,11 @@ class DateTimePickerType extends BasePickerType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array_merge($this->getCommonDefaults(), array(
+        $resolver->setDefaults(array_merge($this->getCommonDefaults(), [
             'dp_use_minutes'     => true,
             'dp_use_seconds'     => true,
             'dp_minute_stepping' => 1,
-        )));
+        ]));
     }
 
     /**

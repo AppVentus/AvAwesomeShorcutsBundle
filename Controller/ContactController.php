@@ -2,25 +2,20 @@
 
 namespace AppVentus\Awesome\ShortcutsBundle\Controller;
 
-use AppVentus\Awesome\ShortcutsBundle\Controller\AwesomeController;
+use AppVentus\Awesome\ShortcutsBundle\Form\ContactType;
+use AppVentus\CmsBundle\Entity\Message;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Pagerfanta\Pagerfanta;
-use Pagerfanta\Adapter\DoctrineORMAdapter;
-use AppVentus\CmsBundle\Entity\Message;
-use AppVentus\Awesome\ShortcutsBundle\Form\ContactType;
 use Symfony\Component\HttpFoundation\Response;
 
 class ContactController extends AwesomeController
 {
-
     /**
-    * @Route("/", name="Default_ContactForm")
-    * @Template()
-    */
+     * @Route("/", name="Default_ContactForm")
+     * @Template()
+     */
     public function formAction()
     {
-
         $contactParameters = $this->container->getParameter('av_awesome_shortcuts');
 
         // $template = $contactParameters['template'];
@@ -38,11 +33,11 @@ class ContactController extends AwesomeController
             if ($form->isValid()) {
                 $data = $form->getData();
 
-                $body = $this->renderView($mailTemplate, array(
+                $body = $this->renderView($mailTemplate, [
                     'name'    => $data['name'],
                     'email'   => $data['email'],
                     'message' => $data['message'],
-                ));
+                ]);
                 $this->createAndSendMail(
                     $subject,
                     $from,
@@ -53,33 +48,33 @@ class ContactController extends AwesomeController
 
                 // @todo Use a basic method to alert by using a config
                 // $this->toastr("Votre message à été envoyé");
-                if($this->getRequest()->isXmlHttpRequest()){
-                    return new Response("<strong>Merci.</strong><br/>Votre message a bien été envoyé.");
-                }else{
+                if ($this->getRequest()->isXmlHttpRequest()) {
+                    return new Response('<strong>Merci.</strong><br/>Votre message a bien été envoyé.');
+                } else {
                     return $this->redirectReferer();
                 }
             }
         }
 
         if ($this->getRequest()->isXmlHttpRequest()) {
-            return $this->render($template, array(
-                        'form' => $form->createView()
-            ));
+            return $this->render($template, [
+                        'form' => $form->createView(),
+            ]);
         } else {
-            $this->get('session')->getFlashBag()->add('modal', array(
-                "button_class" => "hide",
-                "body"         => $this->renderView($template, array(
+            $this->get('session')->getFlashBag()->add('modal', [
+                'button_class' => 'hide',
+                'body'         => $this->renderView($template, [
                                     'form' => $form->createView(),
-                                    'body' => $contactParameters['contact_form']['modal_body_content']
-                                )),
-                "title"        => $contactParameters['contact_form']['modal_title']
-                ));
+                                    'body' => $contactParameters['contact_form']['modal_body_content'],
+                                ]),
+                'title'        => $contactParameters['contact_form']['modal_title'],
+                ]);
 
             return $this->redirectReferer();
         }
 
-        return array(
-                'form' => $form->createView()
-            );
+        return [
+                'form' => $form->createView(),
+            ];
     }
 }

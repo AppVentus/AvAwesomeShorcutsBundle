@@ -23,17 +23,18 @@ class DatemaskType extends AbstractType
 
     /**
      * {@inheritdoc}
+     *
      * @see https://github.com/igorescobar/jQuery-Mask-Plugin
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'widget'      => 'single_text',
             'input'       => 'datetime',
             'format'      => 'dd/MM/yyyy',
             'mask_option' => '00/00/0000',
             'help_block'  => 'format : 31/12/1980',
-        ));
+        ]);
     }
 
     /**
@@ -53,5 +54,4 @@ class DatemaskType extends AbstractType
     {
         return 'datemask';
     }
-
 }
