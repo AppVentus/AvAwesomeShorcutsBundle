@@ -273,7 +273,7 @@ abstract class AwesomeController extends BaseController
      **/
     public function displayAjaxAlert()
     {
-        $template = $this->get('templating')->render('AvAlertifyBundle:Modal:ajax.html.twig');
+        $template = $this->get('templating')->render('TroopersAlertifyBundle:Modal:ajax.html.twig');
 
         return new JsonResponse(['html' => $template]);
     }
