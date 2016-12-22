@@ -151,10 +151,14 @@ abstract class AwesomeController extends BaseController
             ->setBody($body, $contentType);
         foreach ($attachments as $attachment) {
             if ($attachment instanceof UploadedFile) {
+
                 $message
                    ->attach(\Swift_Attachment::fromPath($attachment->getPathName())
                             ->setFilename($attachment->getClientOriginalName())
                     );
+            } elseif ($attachment instanceof \Swift_Attachment)
+            {
+                $message->attach($attachment);
             }
         }
         if ($replyTo != null) {
