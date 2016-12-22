@@ -70,6 +70,9 @@ class ShortcutService
                    ->attach(\Swift_Attachment::fromPath($attachment->getPathName())
                             ->setFilename($attachment->getClientOriginalName())
                     );
+            } elseif ($attachment instanceof \Swift_Attachment)
+            {
+                $message->attach($attachment);
             }
         }
 
