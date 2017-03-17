@@ -4,7 +4,9 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-        $('#{{ id }}').redactor({{ form.vars.redactor_settings|raw }});
+        if ($('#{{ id }}').siblings('.redactor-editor').length === 0) {
+            $('#{{ id }}').redactor({{ form.vars.redactor_settings|raw }});
+        }
     });
 </script>
     {% endspaceless %}
