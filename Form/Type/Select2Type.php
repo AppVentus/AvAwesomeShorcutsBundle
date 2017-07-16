@@ -3,6 +3,7 @@
 namespace AppVentus\Awesome\ShortcutsBundle\Form\Type;
 
 use AppVentus\Awesome\ShortcutsBundle\Form\Transformer\ArrayToStringTransformer;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -57,7 +58,7 @@ class Select2Type extends AbstractType
      */
     public function getParent()
     {
-        return 'entity';
+        return EntityType::class;
     }
 
     /**

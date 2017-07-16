@@ -28,7 +28,7 @@ class DatePickerType extends BasePickerType
      */
     public function getParent()
     {
-        return 'date';
+        return DateType::class;
     }
 
     /**
