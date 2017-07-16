@@ -57,11 +57,15 @@ In your AppKernel.php add the following lines :
 Add the following lines in Config.yml :
 
 ```
-    # Twig Configuration
+    # Sf=2.*
     twig:
         form:
             resources:
-                - 'AvAwesomeShortcutsBundle::fields.html.twig'
+                - 'AvAwesomeShortcutsBundle::fields.html.twig'# Twig Configuration
+    # Sf>=3.*
+    twig:
+        form_themes:
+            - 'AvAwesomeShortcutsBundle::fields.html.twig'
 ```
 
 In your layout file, load the following files :
